@@ -1,5 +1,5 @@
-//! --class-path src --library coconut.data --library tink_core
-import dell.Platform;
+//! --class-path src
+import couchdb.Platform;
 
 /** Publishes the package. **/
 function main() {

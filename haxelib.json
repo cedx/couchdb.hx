@@ -1,0 +1,12 @@
+{
+	"classPath": "src/",
+	"contributors": ["mc2it", "cedx"],
+	"dependencies": {"tink_http": ""},
+	"description": "An Apache CouchDB client for Haxe.",
+	"license": "MIT",
+	"name": "couchdb",
+	"releasenote": "Initial release.",
+	"tags": ["api", "client", "couchdb", "cross", "database", "db", "nosql"],
+	"url": "https://mc2it.github.io/couchdb.hx",
+	"version": "0.1.0"
+}
