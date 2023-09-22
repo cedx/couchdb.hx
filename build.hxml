@@ -4,4 +4,5 @@
 --define js-global=global
 --define no-deprecation-warnings
 --js var/build.js
---library tink_http
+--library coconut.data
+--library tink_web
