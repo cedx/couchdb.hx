@@ -1,0 +1,9 @@
+// Returns meta information about the server instance.
+GET {{url}}/
+Accept: application/json
+
+###
+
+// Returns the binary content for the `favicon.ico` site icon.
+GET {{url}}/favicon.ico
+Accept: image/x-icon
