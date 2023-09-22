@@ -1,0 +1,12 @@
+--class-path src
+--class-path test
+--dce full
+--define analyzer-optimize
+--define coverage-lcov-reporter=var/lcov.info
+--define no-deprecation-warnings
+--library coconut.data
+--library instrument
+--library tink_unittest
+--library tink_web
+--macro instrument.Instrumentation.coverage(["couchdb"], ["src"])
+--main RunTests
