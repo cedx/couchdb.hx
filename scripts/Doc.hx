@@ -11,7 +11,7 @@ function main() {
 
 	Sys.command("haxe --define doc-gen --no-output --xml var/api.xml build.hxml");
 	Sys.command("lix", ["run", "dox",
-		"--define", "description", "An Apache CouchDB client for Haxe.",
+		"--define", "description", "An opinionated Apache CouchDB client for Haxe.",
 		"--define", "source-path", "https://github.com/cedx/couchdb.hx/blob/main/src",
 		"--define", "themeColor", "0xea8220",
 		"--define", "version", Platform.packageVersion,

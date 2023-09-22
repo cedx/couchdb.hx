@@ -1,7 +1,7 @@
 # CouchDB for Haxe
 ![Haxe](https://badgen.net/badge/haxe/%3E%3D4.3.0/green) ![Haxelib](https://badgen.net/haxelib/v/couchdb) ![License](https://badgen.net/haxelib/license/couchdb) ![Downloads](https://badgen.net/haxelib/d/couchdb)
 
-An [Apache CouchDB](https://couchdb.apache.org) client for [Haxe](https://haxe.org).
+An opinionated [Apache CouchDB](https://couchdb.apache.org) client for [Haxe](https://haxe.org).
 
 ## Documentation
 - [User guide](https://docs.belin.io/couchdb.hx)
