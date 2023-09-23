@@ -6,3 +6,5 @@
 --js var/build.js
 --library coconut.data
 --library tink_web
+
+couchdb.Server
