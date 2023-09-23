@@ -7,6 +7,6 @@
 	"[markdown]": {"files.trimTrailingWhitespace": false},
 	"[yaml]": {"editor.insertSpaces": true},
 	"rest-client.environmentVariables": {
-		"dev": {"url": "http://localhost:5984"}
+		"dev": {"url": "http://admin:admin@localhost:5984"}
 	}
 }
