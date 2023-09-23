@@ -2,7 +2,7 @@ name: main
 on: push
 jobs:
   test:
-    runs-on: ${{matrix.target == 'hl' && 'windows-latest' || 'ubuntu-latest'}}
+    runs-on: ubuntu-latest
     services:
       couchdb:
         image: couchdb
