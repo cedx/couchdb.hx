@@ -6,11 +6,15 @@ import tink.Chunk;
 /** Defines the interface of the remote API. **/
 @:noDoc interface RemoteApi {
 
-	/** Returns the binary content for the `favicon.ico` site icon. **/
+	/** The binary content for the `favicon.ico` site icon. **/
 	@:get
 	final favicon: Chunk;
 
-	/** Returns meta information about the server instance. **/
+	/** Meta information about the server instance. **/
 	@:get("/")
 	final info: ServerInfo;
+
+	/** Value indicating whether the server is up. **/
+	@:get("/_up")
+	final isUp: Noise;
 }

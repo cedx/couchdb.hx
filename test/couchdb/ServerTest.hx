@@ -21,4 +21,10 @@ package couchdb;
 
 		return asserts;
 	}
+
+	/** Tests the `isUp` property. **/
+	public function isUp() {
+		server.isUp.next(isUp -> asserts.assert(isUp)).handle(asserts.handle);
+		return asserts;
+	}
 }

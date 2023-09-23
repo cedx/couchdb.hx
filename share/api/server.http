@@ -7,3 +7,9 @@ Accept: application/json
 // Returns the binary content for the `favicon.ico` site icon.
 GET {{url}}/favicon.ico
 Accept: image/x-icon
+
+###
+
+// Returns a value indicating whether this server is up.
+GET {{url}}/_up
+Accept: application/json
