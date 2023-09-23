@@ -9,6 +9,10 @@ using haxe.io.Path;
 /** Provides access to a CouchDB server. **/
 class Server {
 
+	/** The list of all databases. **/
+	public var databases(get, never): Promise<Array<Database>>;
+		function get_databases() return remote.databases().next(names -> names.map(name -> new Database(name, this)));
+
 	/** The binary content for the `favicon.ico` site icon. **/
 	public var favicon(get, never): Promise<Chunk>;
 		inline function get_favicon() return remote.favicon();
@@ -67,7 +71,7 @@ class ServerInfo implements Model {
 }
 
 /** Provides meta information about a server instance. **/
-typedef ServerInfoResponse = {
+private typedef ServerInfoResponse = {
 
 	/** A custom welcome message. **/
 	var couchdb: String;

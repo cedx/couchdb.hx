@@ -1,13 +1,25 @@
 package couchdb;
 
+using Lambda;
+
 /** Tests the features of the `Server` class. **/
 @:asserts final class ServerTest {
 
 	/** The server instance. **/
-	final server = new Server("http://localhost:5984");
+	final server = new Server('http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984');
 
 	/** Creates a new test. **/
 	public function new() {}
+
+	/** Tests the `databases` property. **/
+	public function databases() {
+		server.databases.next(databases -> {
+			asserts.assert(databases.exists(db -> db.name == "_replicator"));
+			asserts.assert(databases.exists(db -> db.name == "_users"));
+		}).handle(asserts.handle);
+
+		return asserts;
+	}
 
 	/** Tests the `info` property. **/
 	public function info() {

@@ -1,15 +1,25 @@
+@apiUrl = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
+
+###
+
 // Returns meta information about the server instance.
-GET {{url}}/
+GET {{apiUrl}}/
 Accept: application/json
 
 ###
 
 // Returns the binary content for the `favicon.ico` site icon.
-GET {{url}}/favicon.ico
+GET {{apiUrl}}/favicon.ico
 Accept: image/x-icon
 
 ###
 
-// Returns a value indicating whether this server is up.
-GET {{url}}/_up
+// Returns the list of all databases.
+GET {{apiUrl}}/_all_dbs
+Accept: application/json
+
+###
+
+// Returns a value indicating whether the server is up.
+GET {{apiUrl}}/_up
 Accept: application/json

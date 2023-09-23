@@ -8,8 +8,8 @@ jobs:
         image: couchdb
         ports: ["5984:5984"]
         env:
-          COUCHDB_USER: admin
-          COUCHDB_PASSWORD: admin
+          COUCHDB_USER: ${{secrets.COUCHDB_USER}}
+          COUCHDB_PASSWORD: ${{secrets.COUCHDB_PASSWORD}}
     strategy:
       matrix:
         target: [hl, java, js, php]
@@ -50,6 +50,9 @@ jobs:
         run: lix download
       - name: Run tests
         run: haxe test_${{matrix.target}}.hxml
+        env:
+          COUCHDB_USER: ${{secrets.COUCHDB_USER}}
+          COUCHDB_PASSWORD: ${{secrets.COUCHDB_PASSWORD}}
       - name: Collect code coverage
         if: success()
         uses: codecov/codecov-action@v3

@@ -6,6 +6,10 @@ import tink.Chunk;
 /** Defines the interface of the remote API. **/
 @:noDoc interface RemoteApi {
 
+	/** The list of all databases. **/
+	@:get("/_all_dbs")
+	final databases: Array<String>;
+
 	/** The binary content for the `favicon.ico` site icon. **/
 	@:get
 	final favicon: Chunk;
