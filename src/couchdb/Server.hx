@@ -23,7 +23,9 @@ class Server {
 
 	/** Value indicating whether this server is up. **/
 	public var isUp(get, never): Promise<Bool>;
-		function get_isUp() return remote.isUp().next(_ -> true).tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
+		function get_isUp() return remote.isUp()
+			.next(_ -> true)
+			.tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
 
 	/** The server URL. **/
 	public final url: Url;

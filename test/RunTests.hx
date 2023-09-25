@@ -7,7 +7,8 @@ import tink.unit.TestBatch;
 /** Runs the test suite. **/
 function main() {
 	final tests = TestBatch.make([
-		new couchdb.ServerTest()
+		new couchdb.ServerTest(),
+		new couchdb.DatabaseTest()
 	]);
 
 	ANSI.stripIfUnavailable = false;

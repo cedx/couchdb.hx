@@ -1,5 +1,6 @@
 package couchdb;
 
+import couchdb.Database.DatabaseCreateOptions;
 import couchdb.Server.ServerInfo;
 import tink.Chunk;
 
@@ -21,4 +22,24 @@ import tink.Chunk;
 	/** Value indicating whether the server is up. **/
 	@:get("/_up")
 	final isUp: Noise;
+
+	/** The database controller. **/
+	@:sub('/$database')
+	function use(database: String): DatabaseController;
+}
+
+/** Manages the databases. **/
+private interface DatabaseController {
+
+	/** Checks whether a database exists. **/
+	@:head("/")
+	final exists: Noise;
+
+	/** Creates a new database. **/
+	@:put("/")
+	function create(?query: DatabaseCreateOptions): Noise;
+
+	/** Deletes a database. **/
+	@:delete("/")
+	function delete(): Noise;
 }
