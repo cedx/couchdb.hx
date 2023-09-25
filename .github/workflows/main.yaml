@@ -16,6 +16,10 @@ jobs:
     steps:
       - name: Fetch sources
         uses: actions/checkout@v3
+      - name: Set up CouchDB
+        run: |
+          curl --request PUT http://${{secrets.COUCHDB_USER}}:${{secrets.COUCHDB_PASSWORD}}@localhost:5984/_replicator
+          curl --request PUT http://${{secrets.COUCHDB_USER}}:${{secrets.COUCHDB_PASSWORD}}@localhost:5984/_users
       - name: Set up Lix
         uses: lix-pm/setup-lix@master
       - name: Set up HashLink
