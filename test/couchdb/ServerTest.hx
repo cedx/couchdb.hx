@@ -24,9 +24,7 @@ using Lambda;
 
 	/** Tests the `favicon` property. **/
 	public function favicon() {
-		final isCI = Sys.getEnv("GITHUB_ACTIONS") == "true";
-		final promise = isCI ? asserts.rejects(NotFound, server.favicon) : asserts.doesNotReject(server.favicon);
-		promise.handle(asserts.handle);
+		asserts.doesNotReject(server.favicon).handle(asserts.handle);
 		return asserts;
 	}
 
