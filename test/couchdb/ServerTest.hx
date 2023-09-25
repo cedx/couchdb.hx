@@ -1,5 +1,6 @@
 package couchdb;
 
+using AssertionTools;
 using Lambda;
 
 /** Tests the features of the `Server` class. **/
@@ -21,6 +22,14 @@ using Lambda;
 		return asserts;
 	}
 
+	/** Tests the `favicon` property. **/
+	public function favicon() {
+		final isCI = Sys.getEnv("GITHUB_ACTIONS") == "true";
+		final promise = isCI ? asserts.rejects(NotFound, server.favicon) : asserts.doesNotReject(server.favicon);
+		promise.handle(asserts.handle);
+		return asserts;
+	}
+
 	/** Tests the `info` property. **/
 	public function info() {
 		server.info.next(info -> {
@@ -39,4 +48,8 @@ using Lambda;
 		server.isUp.next(isUp -> asserts.assert(isUp)).handle(asserts.handle);
 		return asserts;
 	}
+
+	/** Tests the `use()` method. **/
+	public function use()
+		return assert(server.use("foo").name == "foo");
 }
