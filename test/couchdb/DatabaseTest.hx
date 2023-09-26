@@ -35,15 +35,15 @@ using AssertionTools;
 	}
 
 	/** Tests the `delete()` method. **/
-	/*
 	public function delete() {
 		final database = server.use("test");
 		database.create()
-			.next(_ -> { asserts.assert(!exists); asserts.doesNotReject(database.create()); })
 			.next(_ -> database.exists)
-			.next(exists -> { asserts.assert(exists); database.delete(); })
+			.next(exists -> { asserts.assert(exists); asserts.doesNotReject(database.delete()); })
+			.next(_ -> database.exists)
+			.next(exists -> asserts.assert(!exists))
 			.handle(asserts.handle);
 
 		return asserts;
-	}*/
+	}
 }
