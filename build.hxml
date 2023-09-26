@@ -7,4 +7,5 @@
 --library coconut.data
 --library tink_web
 
+couchdb.Database
 couchdb.Server

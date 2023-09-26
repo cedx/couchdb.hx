@@ -1,6 +1,5 @@
 package couchdb;
 
-import couchdb.Database.DatabaseCreateOptions;
 import couchdb.Server.ServerInfo;
 import tink.Chunk;
 
@@ -41,9 +40,22 @@ private interface DatabaseController {
 
 	/** Creates a new database. **/
 	@:put("/")
-	function create(?query: {?n: Int, ?partitioned: Bool, ?q: Int}): Noise;
+	function create(?query: DatabaseCreateOptions): Noise;
 
 	/** Deletes a database. **/
 	@:delete("/")
 	function delete(): Noise;
+}
+
+/** Defines the options for creating a database. **/
+private typedef DatabaseCreateOptions = {
+
+	/** The number of replicas (i.e. the copies of the database in the cluster). **/
+	var ?n: Int;
+
+	/** Value indicating whether to create a partitioned database. **/
+	var ?partitioned: Bool;
+
+	/** The number of shards (i.e. the range partitions). **/
+	var ?q: Int;
 }
