@@ -15,12 +15,12 @@ class Database {
 	/** The database name. **/
 	public final name: String;
 
+	/** The associated server instance. **/
+	public final server: Server;
+
 	/** The database URL. **/
 	public var url(get, never): Url;
 		inline function get_url() return server.url.resolve(name);
-
-	/** The associated server instance. **/
-	final server: Server;
 
 	/** Creates a new database. **/
 	public function new(name: String, server: Server) {

@@ -1,0 +1,8 @@
+@apiUrl = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
+@node = _local
+
+###
+
+// Returns the Erlang node name of the server that processes the request.
+GET {{apiUrl}}/_node/{{node}}
+Accept: application/json

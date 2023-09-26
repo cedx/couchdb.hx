@@ -1,0 +1,5 @@
+package couchdb;
+
+class Membership {
+
+}

@@ -20,6 +20,12 @@ Accept: application/json
 
 ###
 
+// Displays the nodes that are part of the cluster.
+GET {{apiUrl}}/_membership
+Accept: application/json
+
+###
+
 // Returns a value indicating whether the server is up.
 GET {{apiUrl}}/_up
 Accept: application/json
