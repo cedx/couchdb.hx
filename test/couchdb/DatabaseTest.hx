@@ -1,5 +1,8 @@
 package couchdb;
 
+import tink.http.Fetch;
+using AssertionTools;
+
 /** Tests the features of the `Database` class. **/
 @:asserts final class DatabaseTest {
 
@@ -18,4 +21,29 @@ package couchdb;
 
 		return asserts;
 	}
+
+	/** Tests the `create()` method. **/
+	public function create() {
+		final database = server.use("test");
+		database.exists
+			.next(exists -> { asserts.assert(!exists); asserts.doesNotReject(database.create()); })
+			.next(_ -> database.exists)
+			.next(exists -> { asserts.assert(exists); database.delete(); })
+			.handle(asserts.handle);
+
+		return asserts;
+	}
+
+	/** Tests the `delete()` method. **/
+	/*
+	public function delete() {
+		final database = server.use("test");
+		database.create()
+			.next(_ -> { asserts.assert(!exists); asserts.doesNotReject(database.create()); })
+			.next(_ -> database.exists)
+			.next(exists -> { asserts.assert(exists); database.delete(); })
+			.handle(asserts.handle);
+
+		return asserts;
+	}*/
 }
