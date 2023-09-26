@@ -41,7 +41,7 @@ private interface DatabaseController {
 
 	/** Creates a new database. **/
 	@:put("/")
-	function create(?query: DatabaseCreateOptions): Noise;
+	function create(?query: {?n: Int, ?partitioned: Bool, ?q: Int}): Noise;
 
 	/** Deletes a database. **/
 	@:delete("/")

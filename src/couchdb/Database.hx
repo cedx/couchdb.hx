@@ -29,7 +29,11 @@ class Database {
 	}
 
 	/** Creates this database. **/
-	public function create(?options: DatabaseCreateOptions) return server.remote.use(name).create(options);
+	public function create(?options: DatabaseCreateOptions) return server.remote.use(name).create({
+		n: options?.replicas,
+		partitioned: options?.partitioned,
+		q: options?.shards
+	});
 
 	/** Deletes this database. **/
 	public function delete() return server.remote.use(name).delete();
@@ -38,12 +42,12 @@ class Database {
 /** Defines the options for creating a database. **/
 typedef DatabaseCreateOptions = {
 
-	/** The number of replicas (i.e. the copies of the database in the cluster). **/
-	var ?n: Int;
-
 	/** Value indicating whether to create a partitioned database. **/
 	var ?partitioned: Bool;
 
+	/** The number of replicas (i.e. the copies of the database in the cluster). **/
+	var ?replicas: Int;
+
 	/** The number of shards (i.e. the range partitions). **/
-	var ?q: Int;
+	var ?shards: Int;
 }
