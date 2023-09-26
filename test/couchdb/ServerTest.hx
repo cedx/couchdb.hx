@@ -50,4 +50,15 @@ using Lambda;
 	/** Tests the `use()` method. **/
 	public function use()
 		return assert(server.use("foo").name == "foo");
+
+	/** Tests the `uuids()` method. **/
+	public function uuids() {
+		Promise.inParallel([server.uuids(), server.uuids(3)]).next(uuids -> {
+			asserts.assert(uuids[0].length == 1);
+			asserts.assert(uuids[1].length == 3);
+			asserts.assert(~/[a-z\d]{32}/.match(uuids[0].pop()));
+		}).handle(asserts.handle);
+
+		return asserts;
+	}
 }

@@ -41,6 +41,9 @@ class Server {
 
 	/** Returns a database object that allows you to perform operations against that database. **/
 	public inline function use(database: String) return new Database(database, this);
+
+	/** Requests one or more Universally Unique Identifiers (UUIDs) from this server. **/
+	public function uuids(count = 1) return remote.uuids({count: count}).next(response -> response.uuids);
 }
 
 /** Provides meta information about a server instance. **/

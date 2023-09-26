@@ -26,6 +26,10 @@ import tink.Chunk;
 	/** The database controller. **/
 	@:sub('/$database')
 	function use(database: String): DatabaseController;
+
+	/** Requests one or more Universally Unique Identifiers (UUIDs) from the server. **/
+	@:get("/_uuids")
+	function uuids(?query: {count: Int}): {uuids: Array<String>};
 }
 
 /** Manages the databases. **/
