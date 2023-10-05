@@ -37,7 +37,7 @@ class Server {
 	/** Creates a new server. **/
 	public function new(url: Url) {
 		this.url = url.toString().addTrailingSlash();
-		this.remote = Web.connect((this.url: RemoteApi));
+		remote = Web.connect((this.url: RemoteApi));
 	}
 
 	/** Returns a database object that allows you to perform operations against that database. **/
