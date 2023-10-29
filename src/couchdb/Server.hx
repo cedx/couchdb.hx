@@ -1,7 +1,6 @@
 package couchdb;
 
 import tink.Chunk;
-import tink.Url;
 import tink.Web;
 import tink.web.proxy.Remote;
 using haxe.io.Path;

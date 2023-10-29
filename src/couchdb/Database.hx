@@ -1,6 +1,5 @@
 package couchdb;
 
-import tink.Url;
 using StringTools;
 using haxe.io.Path;
 
@@ -31,6 +30,9 @@ class Database implements Model {
 
 	/** Deletes this database. **/
 	public function delete() return @:privateAccess server.remote.use(name).delete();
+
+	/** Returns a document object that allows you to perform operations against that document. **/
+	public inline function use(document: String) return new Document({database: this, key: document});
 }
 
 /** Defines the options for creating a database. **/

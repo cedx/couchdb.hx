@@ -6,22 +6,23 @@ using AssertionTools;
 /** Tests the features of the `Database` class. **/
 @:asserts final class DatabaseTest {
 
+	/** The database instance. **/
+	final database: Database;
+
 	/** The server instance. **/
 	final server = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984'});
 
 	/** Creates a new test. **/
-	public function new() {}
+	public function new() database = server.use("test");
 
 	/** This method is invoked after each test. **/
-	@:after public function after() return Client.fetch(server.url.resolve("test"), {method: DELETE}).noise();
+	@:after public function after() return Client.fetch(database.url, {method: DELETE}).noise();
 
 	/** Tests the `exists` property. **/
-	public function exists() {
-		Promise.inParallel([server.use("_users").exists, server.use("foo").exists]).next(exists -> {
-			asserts.assert(exists[0]);
-			asserts.assert(!exists[1]);
-		}).handle(asserts.handle);
-
+	@:variant("_users", true)
+	@:variant("foo", false)
+	public function exists(input: String, output: Bool) {
+		new Database({name: input, server: server}).exists.next(exists -> asserts.assert(exists == output)).handle(asserts.handle);
 		return asserts;
 	}
 
@@ -33,7 +34,6 @@ using AssertionTools;
 
 	/** Tests the `create()` method. **/
 	public function create() {
-		final database = server.use("test");
 		database.exists
 			.next(exists -> { asserts.assert(!exists); asserts.doesNotReject(database.create()); })
 			.next(_ -> database.exists)
@@ -45,8 +45,7 @@ using AssertionTools;
 
 	/** Tests the `delete()` method. **/
 	public function delete() {
-		final database = server.use("test");
-		Client.fetch(server.url.resolve("test"), {method: PUT})
+		Client.fetch(database.url, {method: PUT})
 			.next(_ -> database.exists)
 			.next(exists -> { asserts.assert(exists); asserts.doesNotReject(database.delete()); })
 			.next(_ -> database.exists)
@@ -55,4 +54,7 @@ using AssertionTools;
 
 		return asserts;
 	}
+
+	/** Tests the `use()` method. **/
+	public function use() return assert(database.use("foo").key == "foo");
 }
