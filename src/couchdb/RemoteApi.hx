@@ -14,7 +14,7 @@ import tink.Chunk;
 	@:get
 	final favicon: Chunk;
 
-	/** Meta information about the server instance. **/
+	/** Information about the server. **/
 	@:get("/")
 	final info: ServerInfo;
 

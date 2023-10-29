@@ -5,8 +5,8 @@ using AssertionTools;
 /** Tests the features of the `Server` class. **/
 @:asserts final class ServerTest {
 
-	/** The info server. **/
-	final server = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984/'});
+	/** The server instance. **/
+	final server = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984'});
 
 	/** Creates a new test. **/
 	public function new() {}

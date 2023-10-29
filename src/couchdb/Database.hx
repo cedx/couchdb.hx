@@ -2,41 +2,35 @@ package couchdb;
 
 import tink.Url;
 using StringTools;
+using haxe.io.Path;
 
-/** Provides access to a CouchDB database. **/
-class Database {
+/** Represents a CouchDB database. **/
+class Database implements Model {
 
 	/** Value indicating whether this database exists. **/
 	public var exists(get, never): Promise<Bool>;
-		function get_exists() return server.remote.use(name).exists()
+		function get_exists() return @:privateAccess server.remote.use(name).exists()
 			.next(_ -> true)
 			.tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
 
 	/** The database name. **/
-	public final name: String;
+	@:constant var name: String;
 
-	/** The associated server instance. **/
-	public final server: Server;
+	/** The associated server. **/
+	@:constant var server: Server;
 
 	/** The database URL. **/
-	public var url(get, never): Url;
-		inline function get_url() return server.url.resolve(name);
-
-	/** Creates a new database. **/
-	public function new(name: String, server: Server) {
-		this.name = name;
-		this.server = server;
-	}
+	@:computed var url: Url = Url.parse(server.url.toString().addTrailingSlash()).resolve(name);
 
 	/** Creates this database. **/
-	public function create(?options: DatabaseCreateOptions) return server.remote.use(name).create({
+	public function create(?options: DatabaseCreateOptions) return @:privateAccess server.remote.use(name).create({
 		n: options?.replicas,
 		partitioned: options?.partitioned,
 		q: options?.shards
 	});
 
 	/** Deletes this database. **/
-	public function delete() return server.remote.use(name).delete();
+	public function delete() return @:privateAccess server.remote.use(name).delete();
 }
 
 /** Defines the options for creating a database. **/

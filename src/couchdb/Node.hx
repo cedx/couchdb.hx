@@ -6,7 +6,7 @@ class Node {
 	/** The node name. **/
 	public final name: String;
 
-	/** The associated server instance. **/
+	/** The associated server. **/
 	public final server: Server;
 
 	/** Creates a new database. **/
