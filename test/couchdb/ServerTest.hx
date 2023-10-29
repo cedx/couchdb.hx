@@ -1,13 +1,12 @@
 package couchdb;
 
 using AssertionTools;
-using Lambda;
 
 /** Tests the features of the `Server` class. **/
 @:asserts final class ServerTest {
 
-	/** The server instance. **/
-	final server = new Server('http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984');
+	/** The info server. **/
+	final server = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984/'});
 
 	/** Creates a new test. **/
 	public function new() {}
@@ -28,9 +27,15 @@ using Lambda;
 		return asserts;
 	}
 
-	/** Tests the `info` property. **/
-	public function info() {
-		server.info.next(info -> {
+	/** Tests the `isUp` property. **/
+	public function isUp() {
+		server.isUp.next(isUp -> asserts.assert(isUp)).handle(asserts.handle);
+		return asserts;
+	}
+
+	/** Tests the `fetch()` method. **/
+	public function fetch() {
+		server.fetch().next(info -> {
 			asserts.assert(info.features.length > 0);
 			asserts.assert(~/[a-z\d]{9}/.match(info.gitSha));
 			asserts.assert(~/[a-z\d]{32}/.match(info.uuid));
@@ -41,22 +46,15 @@ using Lambda;
 		return asserts;
 	}
 
-	/** Tests the `isUp` property. **/
-	public function isUp() {
-		server.isUp.next(isUp -> asserts.assert(isUp)).handle(asserts.handle);
-		return asserts;
-	}
-
 	/** Tests the `use()` method. **/
-	public function use()
-		return assert(server.use("foo").name == "foo");
+	public function use() return assert(server.use("foo").name == "foo");
 
 	/** Tests the `uuids()` method. **/
 	public function uuids() {
 		Promise.inParallel([server.uuids(), server.uuids(3)]).next(uuids -> {
 			asserts.assert(uuids[0].length == 1);
 			asserts.assert(uuids[1].length == 3);
-			asserts.assert(~/[a-z\d]{32}/.match(uuids[0].pop()));
+			asserts.assert(~/[a-z\d]{32}/.match(uuids[0].first().sure()));
 		}).handle(asserts.handle);
 
 		return asserts;

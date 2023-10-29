@@ -6,21 +6,35 @@ import tink.Web;
 import tink.web.proxy.Remote;
 using haxe.io.Path;
 
-/** Provides access to a CouchDB server. **/
-class Server {
+/** Represents a CouchDB server. **/
+class Server implements Model {
+
+	/** The list of features supported by this server. **/
+	@:constant var features: List<String> = @byDefault new List();
+
+	/** The Git revision. **/
+	@:constant var gitSha: String = @byDefault "";
+
+	/** The server URL. **/
+	@:constant var url: Url;
+
+	/** The server identifier. **/
+	@:constant var uuid: String = @byDefault "";
+
+	/** The vendor name. **/
+	@:constant var vendor: String = @byDefault "";
+
+	/** The version number. **/
+	@:constant var version: String = @byDefault "";
 
 	/** The list of all databases. **/
-	public var databases(get, never): Promise<Array<Database>>;
+	public var databases(get, never): Promise<List<Database>>;
 		function get_databases() return remote.databases()
-			.next(names -> names.map(name -> new Database(name, this)));
+			.next(names -> List.fromArray(names.map(name -> new Database({name: name, server: this}))));
 
 	/** The binary content for the `favicon.ico` site icon. **/
 	public var favicon(get, never): Promise<Chunk>;
 		inline function get_favicon() return remote.favicon();
-
-	/** Meta information about the server instance. **/
-	public var info(get, never): Promise<ServerInfo>;
-		inline function get_info() return remote.info();
 
 	/** Value indicating whether this server is up. **/
 	public var isUp(get, never): Promise<Bool>;
@@ -28,56 +42,31 @@ class Server {
 			.next(_ -> true)
 			.tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
 
-	/** The server URL. **/
-	public final url: Url;
-
 	/** The remote API client. **/
-	@:allow(couchdb) final remote: Remote<RemoteApi>;
+	@:editable private var remote: Remote<RemoteApi> = null;
 
 	/** Creates a new server. **/
-	public function new(url: Url) {
-		this.url = url.toString().addTrailingSlash();
-		remote = Web.connect((this.url: RemoteApi));
-	}
+	public function new() remote = Web.connect((this.url: RemoteApi));
 
-	/** Returns a database object that allows you to perform operations against that database. **/
-	public inline function use(database: String) return new Database(database, this);
-
-	/** Requests one or more Universally Unique Identifiers (UUIDs) from this server. **/
-	public function uuids(count = 1) return remote.uuids({count: count}).next(response -> response.uuids);
-}
-
-/** Provides meta information about a server instance. **/
-@:jsonParse(json -> couchdb.Server.ServerInfo.fromJson(json))
-class ServerInfo implements Model {
-
-	/** The list of features supported by the server. **/
-	@:constant var features: List<String>;
-
-	/** The Git revision. **/
-	@:constant var gitSha: String;
-
-	/** The server identifier. **/
-	@:constant var uuid: String;
-
-	/** The vendor name. **/
-	@:constant var vendor: String;
-
-	/** The version number. **/
-	@:constant var version: String;
-
-	/** Creates a new server from the specified JSON object. **/
-	public static function fromJson(json: ServerInfoResponse) return new ServerInfo({
+	/** Fetches information about this server. **/
+	public function fetch() return remote.info().next(json -> new Server({
 		features: json.features,
 		gitSha: json.git_sha,
+		url: url,
 		uuid: json.uuid,
 		vendor: json.vendor.name,
 		version: json.version
-	});
+	}));
+
+	/** Returns a database object that allows you to perform operations against that database. **/
+	public inline function use(database: String) return new Database({name: database, server: this});
+
+	/** Requests one or more Universally Unique Identifiers (UUIDs) from this server. **/
+	public function uuids(count = 1) return remote.uuids({count: count}).next(response -> List.fromArray(response.uuids));
 }
 
-/** Provides meta information about a server instance. **/
-private typedef ServerInfoResponse = {
+/** Provides information about a server. **/
+typedef ServerInfo = {
 
 	/** A custom welcome message. **/
 	var couchdb: String;

@@ -1,6 +1,6 @@
 @apiUrl = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
 
-### Returns meta information about the server instance.
+### Returns information about the server instance.
 GET {{apiUrl}}/
 Accept: application/json
 
