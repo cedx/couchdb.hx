@@ -1,7 +1,7 @@
 @apiUrl = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
 
-### Returns information about the server instance.
-GET {{apiUrl}}/
+### Returns information about the server.
+GET {{apiUrl}}
 Accept: application/json
 
 ### Returns the binary content for the `favicon.ico` site icon.

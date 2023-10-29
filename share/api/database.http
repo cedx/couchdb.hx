@@ -5,6 +5,10 @@
 DELETE {{apiUrl}}/{{database}}
 Accept: application/json
 
+### Returns information about a database.
+GET {{apiUrl}}/{{database}}
+Accept: application/json
+
 ### Checks whether a database exists.
 HEAD {{apiUrl}}/{{database}}
 Accept: application/json
