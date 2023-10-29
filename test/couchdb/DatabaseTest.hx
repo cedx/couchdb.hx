@@ -13,9 +13,9 @@ using AssertionTools;
 	final server = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984'});
 
 	/** Creates a new test. **/
-	public function new() database = server.use("test");
+	public function new() database = server.use("database");
 
-	/** This method is invoked after each test. **/
+	/** Method invoked after each test. **/
 	@:after public function after() return Client.fetch(database.url, {method: DELETE}).noise();
 
 	/** Tests the `exists` property. **/
