@@ -33,6 +33,21 @@ using AssertionTools;
 		return asserts;
 	}
 
+	/** Tests the `authenticate()` method. **/
+	public function authenticate() {
+		final userName = Sys.getEnv("COUCHDB_USER");
+		asserts.rejects(Unauthorized, server.authenticate("foo", "bar"))
+			.next(_ -> server.authenticate(userName, Sys.getEnv("COUCHDB_PASSWORD")))
+			.next(session -> {
+				asserts.assert(session.token.length > 60);
+				asserts.assert(session.user.name == userName);
+				asserts.assert(session.user.roles.exists(role -> role == "_admin"));
+			})
+			.handle(asserts.handle);
+
+		return asserts;
+	}
+
 	/** Tests the `fetch()` method. **/
 	public function fetch() {
 		server.fetch().next(info -> {
