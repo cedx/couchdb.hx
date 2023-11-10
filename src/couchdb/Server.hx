@@ -1,7 +1,12 @@
 package couchdb;
 
+import haxe.io.Mime;
 import tink.Chunk;
+import tink.Json;
 import tink.Web;
+import tink.http.Client as Http;
+import tink.http.Fetch.FetchOptions;
+import tink.http.Header.HeaderField;
 import tink.web.proxy.Remote;
 using haxe.io.Path;
 
@@ -47,8 +52,27 @@ class Server implements Model {
 	/** Creates a new server. **/
 	public function new() remote = Web.connect((this.url: RemoteApi));
 
+	/** Initiates a new session for the specified user credentials. **/
+	public function authenticate(name: String, password: String) {
+		final body: Chunk = Json.stringify({name: name, password: password});
+		final options: FetchOptions = {
+			method: POST,
+			headers: [new HeaderField(CONTENT_LENGTH, body.length), new HeaderField(CONTENT_TYPE, Mime.ApplicationJson)],
+			body: body
+		};
+
+		final endpoint = Url.parse(url.toString().addTrailingSlash()).resolve("_session");
+		return Http.fetch(endpoint, options).all().next(response -> switch response.header.byName(SET_COOKIE) {
+			case Failure(error): Failure(error);
+			case Success(header):
+				final cookie = (header: String).split(";").shift();
+				remote = Web.connect((url: RemoteApi), {headers: [new HeaderField(COOKIE, cookie)]});
+				new Session({server: this, token: cookie.split("=").pop(), user: (Json.parse(response.body): User)});
+		});
+	}
+
 	/** Fetches information about this server. **/
-	public function fetch() return remote.info().next(json -> new Server({
+	public function fetch() return remote.fetch().next(json -> new Server({
 		features: json.features,
 		gitSha: json.git_sha,
 		url: url,

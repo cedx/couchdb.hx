@@ -1,6 +1,8 @@
 package couchdb;
 
 import couchdb.Server.ServerInfo;
+import couchdb.Session.SessionInfo;
+import couchdb.User.UserInfo;
 import tink.Chunk;
 
 /** Defines the interface of the remote API. **/
@@ -14,13 +16,17 @@ import tink.Chunk;
 	@:get
 	final favicon: Chunk;
 
-	/** Information about the server. **/
-	@:get("/")
-	final info: ServerInfo;
-
 	/** Value indicating whether the server is up. **/
 	@:get("/_up")
 	final isUp: Noise;
+
+	/** The session controller. **/
+	@:sub("/_session")
+	final session: SessionController;
+
+	/** Fetches information about the server. **/
+	@:get("/")
+	function fetch(): ServerInfo;
 
 	/** The database controller. **/
 	@:sub('/$database')
@@ -58,4 +64,20 @@ private typedef DatabaseCreateOptions = {
 
 	/** The number of shards (i.e. the range partitions). **/
 	var ?q: Int;
+}
+
+/** Manages the user sessions. **/
+private interface SessionController {
+
+	/** Initiates a new session for the specified user credentials. **/
+	@:post("/")
+	function create(?query: {redirect: String}): UserInfo;
+
+	/** Deletes a session. **/
+	@:delete("/")
+	function delete(): Noise;
+
+	/** Fetches information about the session. **/
+	@:get("/")
+	function fetch(): SessionInfo;
 }
