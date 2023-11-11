@@ -1,6 +1,8 @@
 # CouchDB for Haxe
 An opinionated [Apache CouchDB](https://couchdb.apache.org) client for [Haxe](https://haxe.org).
 
+!> **Not ready** for production!
+
 ## Quick start
 Install the latest version of **CouchDB for Haxe** with [lix](https://github.com/lix-pm/lix.client) package manager:
 

@@ -3,6 +3,8 @@
 
 An opinionated [Apache CouchDB](https://couchdb.apache.org) client for [Haxe](https://haxe.org).
 
+> **Not ready** for production!
+
 ## Documentation
 - [User guide](https://docs.belin.io/couchdb.hx)
 - [API reference](https://docs.belin.io/couchdb.hx/api)
