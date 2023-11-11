@@ -1,6 +1,5 @@
 package couchdb;
 
-import couchdb.Query;
 using haxe.io.Path;
 
 /** Represents a CouchDB view. **/

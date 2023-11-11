@@ -1,5 +1,3 @@
 package couchdb;
 
-class Membership {
-
-}
+class Membership {}

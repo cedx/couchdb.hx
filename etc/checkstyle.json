@@ -2,7 +2,13 @@
 	"defaultSeverity": "ERROR",
 	"exclude": {
 		"path": "RELATIVE_TO_PROJECT",
-		"Dynamic": ["src/dell/quote/ProblemDetails"]
+		"MemberName": [
+			"src/couchdb/Attachment",
+			"src/couchdb/Database",
+			"src/couchdb/Server",
+			"src/couchdb/Task"
+		],
+		"RedundantModifier": ["src/couchdb/Server:remote"]
 	},
 	"checks": [
 		{"type": "BlockBreakingConditional"},
