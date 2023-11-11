@@ -1,0 +1,27 @@
+@server = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
+@database = test
+@document = doc
+
+### Returns the list of all local documents.
+GET {{server}}/{{database}}/_local_docs
+Accept: application/json
+
+### TODO
+GET {{server}}/{{database}}/_local/{{document}}
+Accept: application/json
+
+### TODO
+PUT {{server}}/{{database}}/_local/{{document}}
+Accept: application/json
+Content-Type: application/json
+
+{"key": "value"}
+
+### TODO
+DELETE {{server}}/{{database}}/_local/{{document}}
+Accept: application/json
+
+### TODO
+COPY {{server}}/{{database}}/_local/{{document}}
+Accept: application/json
+Destination: doc_copy
