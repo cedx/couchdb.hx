@@ -38,10 +38,10 @@ class Database implements Model {
 	public inline function design(key: String) return new DesignDocument({db: this, key: key});
 
 	/** Returns an object for performing operations on a local document. **/
-	public inline function local(key: String) return new LocalDocument({db: this, key: key});
+	public inline function local<T>(key: String) return new LocalDocument<T>({db: this, key: key});
 
 	/** Returns an object for performing operations on a document. **/
-	public inline function use(document: String) return new Document({db: this, id: document});
+	public inline function use<T>(document: String) return new Document<T>({db: this, id: document});
 
 	/** Returns an object for performing operations on a view. **/
 	public inline function view(designKey: String, viewKey: String) return design(designKey).use(viewKey);
