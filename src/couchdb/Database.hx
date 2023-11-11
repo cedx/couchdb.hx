@@ -32,10 +32,19 @@ class Database implements Model {
 	});
 
 	/** Deletes this database. **/
-	public function delete() return @:privateAccess server.remote.use(name).delete();
+	public function delete() return remote.use(name).delete();
 
-	/** Returns a document object that allows you to perform operations against that document. **/
-	public inline function use(document: String) return new Document({database: this, key: document});
+	/** Returns an object for performing operations on a design document. **/
+	public inline function design(key: String) return new DesignDocument({db: this, key: key});
+
+	/** Returns an object for performing operations on a local document. **/
+	public inline function local(key: String) return new LocalDocument({db: this, key: key});
+
+	/** Returns an object for performing operations on a document. **/
+	public inline function use(document: String) return new Document({db: this, id: document});
+
+	/** Returns an object for performing operations on a view. **/
+	public inline function view(designKey: String, viewKey: String) return design(designKey).use(viewKey);
 }
 
 /** Defines the options for creating a database. **/
