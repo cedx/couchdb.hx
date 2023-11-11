@@ -1,4 +1,4 @@
-//! --class-path src
+//! --class-path src --library coconut.data
 import couchdb.Platform;
 
 /** Publishes the package. **/

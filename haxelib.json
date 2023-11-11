@@ -1,6 +1,6 @@
 {
 	"classPath": "src/",
-	"contributors": ["mc2it", "cedx"],
+	"contributors": ["cedx"],
 	"dependencies": {"coconut.data": "", "tink_web": ""},
 	"description": "An opinionated Apache CouchDB client for Haxe.",
 	"license": "MIT",
