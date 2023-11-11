@@ -8,7 +8,7 @@ import tink.unit.TestBatch;
 function main() {
 	final tests = TestBatch.make([
 		new couchdb.ServerTest(),
-		//new couchdb.DatabaseTest(),
+		new couchdb.DatabaseTest(),
 		//new couchdb.DocumentTest()
 	]);
 

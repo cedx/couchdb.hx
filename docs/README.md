@@ -17,6 +17,6 @@ Sorry, there is nothing to see here for the moment.
 In the meantime, you can check the [API reference](api/).
 
 ## See also
-- [Git repository](https://github.com/mc2it/couchdb.hx)
+- [Git repository](https://github.com/cedx/couchdb.hx)
 - [Haxelib package](https://lib.haxe.org/p/couchdb)
-- [Submit an issue](https://github.com/mc2it/couchdb.hx/issues)
+- [Submit an issue](https://github.com/cedx/couchdb.hx/issues)
