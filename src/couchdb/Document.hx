@@ -18,5 +18,6 @@ class Document<T> implements Model {
 	@:computed var url: Url = Url.parse(db.url.toString().addTrailingSlash()).resolve(id);
 
 	/** The remote API client. **/
-	@:computed private var remote: Remote<RemoteApi> = @:privateAccess db.remote;
+	var remote(get, never): Remote<RemoteApi>;
+		inline function get_remote() return @:privateAccess db.server.remote;
 }

@@ -22,7 +22,8 @@ class Session implements Model {
 	@:constant var user: User;
 
 	/** The remote API client. **/
-	@:computed private var remote: Remote<RemoteApi> = @:privateAccess server.remote;
+	var remote(get, never): Remote<RemoteApi>;
+		inline function get_remote() return @:privateAccess server.remote;
 
 	/** Deletes this session. **/
 	public function delete() return remote.session().delete().next(_ -> {

@@ -55,6 +55,12 @@ using AssertionTools;
 		return asserts;
 	}
 
+	/** Tests the `design()` method. **/
+	public function design() return assert(database.design("foo").id == "_design/foo");
+
+	/** Tests the `local()` method. **/
+	public function local() return assert(database.local("foo").id == "_local/foo");
+
 	/** Tests the `use()` method. **/
-	public function use() return assert(database.use("foo").key == "foo");
+	public function use() return assert(database.use("foo").id == "foo");
 }

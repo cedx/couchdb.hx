@@ -1,5 +1,6 @@
 package couchdb;
 
+import couchdb.Database.DatabaseInfo;
 import couchdb.Server.ServerInfo;
 import couchdb.Session.SessionInfo;
 import couchdb.User.UserInfo;
@@ -60,6 +61,10 @@ private interface DatabaseController {
 	@:sub('/_design/$key')
 	function design(key: String): DesignDocumentController;
 
+	/** Fetches information about the database. **/
+	@:get("/")
+	function fetch(): DatabaseInfo;
+
 	/** Returns an object for performing operations on a local document. **/
 	@:sub('/_local/$key')
 	function local(key: String): LocalDocumentController;
@@ -96,7 +101,7 @@ private interface SessionController {
 
 	/** Initiates a new session for the specified user credentials. **/
 	@:post("/")
-	function create(?query: {redirect: String}): UserInfo;
+	function create(body: {name: String, password: String}, ?query: {next: String}): UserInfo;
 
 	/** Deletes a session. **/
 	@:delete("/")
