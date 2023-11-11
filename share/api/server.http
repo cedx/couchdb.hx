@@ -12,6 +12,10 @@ Accept: image/x-icon
 GET {{server}}/_all_dbs
 Accept: application/json
 
+### Returns the list of active tasks.
+GET {{server}}/_active_tasks
+Accept: application/json
+
 ### Displays the nodes that are part of the cluster.
 GET {{server}}/_membership
 Accept: application/json

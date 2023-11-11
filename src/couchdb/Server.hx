@@ -45,6 +45,10 @@ class Server implements Model {
 			.next(_ -> true)
 			.tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
 
+	/** The list of active tasks. **/
+	public var tasks(get, never): Promise<List<Task>>;
+		function get_tasks() return remote.tasks().next(List.fromArray);
+
 	/** The remote API client. **/
 	@:editable private var remote: Remote<RemoteApi> = null;
 

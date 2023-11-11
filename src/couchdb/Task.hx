@@ -73,4 +73,5 @@ enum abstract TaskType(String) from String to String {
 	var DatabaseCompaction = "database_compaction";
 	var Indexer = "indexer";
 	var Replication = "replication";
+	var ViewCompaction = "view_compaction";
 }

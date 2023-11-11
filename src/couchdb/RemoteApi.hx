@@ -24,6 +24,10 @@ import tink.Chunk;
 	@:sub("/_session")
 	final session: SessionController;
 
+	/** The list of active tasks. **/
+	@:get("/_active_tasks")
+	final tasks: Array<Task>;
+
 	/** Fetches information about the server. **/
 	@:get("/")
 	function fetch(): ServerInfo;
