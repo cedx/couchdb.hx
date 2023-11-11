@@ -28,7 +28,7 @@ import tink.Chunk;
 	@:get("/")
 	function fetch(): ServerInfo;
 
-	/** The database controller. **/
+	/** Returns an object for performing operations on a database. **/
 	@:sub('/$database')
 	function use(database: String): DatabaseController;
 
@@ -51,6 +51,18 @@ private interface DatabaseController {
 	/** Deletes a database. **/
 	@:delete("/")
 	function delete(): Noise;
+
+	/** Returns an object for performing operations on a design document. **/
+	@:sub('/_design/$key')
+	function design(key: String): DesignDocumentController;
+
+	/** Returns an object for performing operations on a local document. **/
+	@:sub('/_local/$key')
+	function local(key: String): LocalDocumentController;
+
+	/** Returns an object for performing operations on a document. **/
+	@:sub('/$document')
+	function use(document: String): DocumentController;
 }
 
 /** Defines the options for creating a database. **/
@@ -65,6 +77,15 @@ private typedef DatabaseCreateOptions = {
 	/** The number of shards (i.e. the range partitions). **/
 	var ?q: Int;
 }
+
+/** Manages the design documents. **/
+private interface DesignDocumentController {}
+
+/** Manages the documents. **/
+private interface DocumentController {}
+
+/** Manages the local documents. **/
+private interface LocalDocumentController {}
 
 /** Manages the user sessions. **/
 private interface SessionController {

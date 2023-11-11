@@ -4,10 +4,9 @@ import haxe.io.Mime;
 import tink.Chunk;
 import tink.Json;
 import tink.Web;
-import tink.http.Client as Http;
+import tink.http.Client;
 import tink.http.Fetch.FetchOptions;
 import tink.http.Header.HeaderField;
-import tink.web.proxy.Remote;
 using haxe.io.Path;
 
 /** Represents a CouchDB server. **/
@@ -62,7 +61,7 @@ class Server implements Model {
 		};
 
 		final endpoint = Url.parse(url.toString().addTrailingSlash()).resolve("_session");
-		return Http.fetch(endpoint, options).all().next(response -> switch response.header.byName(SET_COOKIE) {
+		return Client.fetch(endpoint, options).all().next(response -> switch response.header.byName(SET_COOKIE) {
 			case Failure(error): Failure(error);
 			case Success(header):
 				final cookie = (header: String).split(";").shift();
@@ -81,7 +80,7 @@ class Server implements Model {
 		version: json.version
 	}));
 
-	/** Returns a database object that allows you to perform operations against that database. **/
+	/** Returns an object for performing operations on a database. **/
 	public inline function use(database: String) return new Database({name: database, server: this});
 
 	/** Requests one or more Universally Unique Identifiers (UUIDs) from this server. **/

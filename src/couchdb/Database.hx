@@ -8,7 +8,7 @@ class Database implements Model {
 
 	/** Value indicating whether this database exists. **/
 	public var exists(get, never): Promise<Bool>;
-		function get_exists() return @:privateAccess server.remote.use(name).exists()
+		function get_exists() return remote.use(name).exists()
 			.next(_ -> true)
 			.tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
 
@@ -21,8 +21,11 @@ class Database implements Model {
 	/** The database URL. **/
 	@:computed var url: Url = Url.parse(server.url.toString().addTrailingSlash()).resolve(name);
 
+	/** The remote API client. **/
+	@:computed private var remote: Remote<RemoteApi> = @:privateAccess server.remote;
+
 	/** Creates this database. **/
-	public function create(?options: DatabaseCreateOptions) return @:privateAccess server.remote.use(name).create({
+	public function create(?options: DatabaseCreateOptions) return remote.use(name).create({
 		n: options?.replicas,
 		partitioned: options?.partitioned,
 		q: options?.shards

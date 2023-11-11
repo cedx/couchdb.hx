@@ -21,14 +21,17 @@ class Session implements Model {
 	/** The session user. **/
 	@:constant var user: User;
 
+	/** The remote API client. **/
+	@:computed private var remote: Remote<RemoteApi> = @:privateAccess server.remote;
+
 	/** Deletes this session. **/
-	public function delete() return @:privateAccess server.remote.session().delete().next(_ -> {
-		server.remote = Web.connect((server.url: RemoteApi));
+	public function delete() return remote.session().delete().next(_ -> {
+		@:privateAccess server.remote = Web.connect((server.url: RemoteApi));
 		Noise;
 	});
 
 	/** Fetches information about this session. **/
-	public function fetch() return @:privateAccess server.remote.session().fetch().next(json -> new Session({
+	public function fetch() return remote.session().fetch().next(json -> new Session({
 		handlers: json.info.authentication_handlers,
 		method: json.info.authenticated,
 		server: server,
