@@ -1,25 +1,25 @@
-@apiUrl = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
+@server = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
 
 ### Returns information about the server.
-GET {{apiUrl}}
+GET {{server}}
 Accept: application/json
 
 ### Returns the binary content for the `favicon.ico` site icon.
-GET {{apiUrl}}/favicon.ico
+GET {{server}}/favicon.ico
 Accept: image/x-icon
 
 ### Returns the list of all databases.
-GET {{apiUrl}}/_all_dbs
+GET {{server}}/_all_dbs
 Accept: application/json
 
 ### Displays the nodes that are part of the cluster.
-GET {{apiUrl}}/_membership
+GET {{server}}/_membership
 Accept: application/json
 
 ### Returns a value indicating whether the server is up.
-GET {{apiUrl}}/_up
+GET {{server}}/_up
 Accept: application/json
 
 ### Requests one or more Universally Unique Identifiers (UUIDs) from the server.
-GET {{apiUrl}}/_uuids?count=3
+GET {{server}}/_uuids?count=3
 Accept: application/json

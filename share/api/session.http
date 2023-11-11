@@ -1,19 +1,19 @@
-@apiUrl = {{scheme}}://{{host}}
-@cookie = cm9vdDo2NTQyNDU2Rjrk2AEbHj1UiLXs3d6QzWtNBscBu0BEJflR1u0CaawPpQ
+@server = {{scheme}}://{{host}}
+@cookie = cm9vdDo2NTRFNTNDNDpKYLNMkd0By3vPcUVCE7_59ASDLc4Qyy_b2EDtj22ldQ
 
-### Initiates a new session for specified user credentials.
-POST {{apiUrl}}/_session
+### Initiates a new session for the specified user credentials.
+POST {{server}}/_session
 Accept: application/json
 Content-Type: application/json
 
 {"name": "{{$processEnv COUCHDB_USER}}", "password": "{{$processEnv COUCHDB_PASSWORD}}"}
 
-### Returns information about the authenticated user.
-GET {{apiUrl}}/_session
+### Fetches information about the session.
+GET {{server}}/_session
 Accept: application/json
 Cookie: AuthSession={{cookie}}
 
-### Closes user's session by instructing the browser to clear the cookie.
-DELETE {{apiUrl}}/_session
+### Deletes the session.
+DELETE {{server}}/_session
 Accept: application/json
 Cookie: AuthSession={{cookie}}

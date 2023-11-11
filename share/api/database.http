@@ -1,18 +1,18 @@
-@apiUrl = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
+@server = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
 @database = test
 
 ### Deletes a database.
-DELETE {{apiUrl}}/{{database}}
+DELETE {{server}}/{{database}}
 Accept: application/json
 
 ### Returns information about a database.
-GET {{apiUrl}}/{{database}}
+GET {{server}}/{{database}}
 Accept: application/json
 
 ### Checks whether a database exists.
-HEAD {{apiUrl}}/{{database}}
+HEAD {{server}}/{{database}}
 Accept: application/json
 
 ### Creates a new database.
-PUT {{apiUrl}}/{{database}}
+PUT {{server}}/{{database}}
 Accept: application/json
