@@ -3,10 +3,12 @@ package couchdb;
 import haxe.io.Mime;
 import tink.Chunk;
 import tink.Json;
+import tink.Url;
 import tink.Web;
 import tink.http.Client;
 import tink.http.Fetch.FetchOptions;
 import tink.http.Header.HeaderField;
+import tink.web.proxy.Remote;
 using haxe.io.Path;
 
 /** Represents a CouchDB server. **/

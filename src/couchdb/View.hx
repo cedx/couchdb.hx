@@ -1,5 +1,6 @@
 package couchdb;
 
+import tink.Url;
 using haxe.io.Path;
 
 /** Represents a CouchDB view. **/

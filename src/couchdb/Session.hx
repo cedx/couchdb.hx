@@ -2,6 +2,7 @@ package couchdb;
 
 import couchdb.User.UserInfo;
 import tink.Web;
+import tink.web.proxy.Remote;
 
 /** Represents a CouchDB session. **/
 class Session implements Model {

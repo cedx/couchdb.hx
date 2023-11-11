@@ -7,9 +7,6 @@
 	"[markdown]": {"files.trimTrailingWhitespace": false},
 	"[yaml]": {"editor.insertSpaces": true},
 	"rest-client.environmentVariables": {
-		"dev": {
-			"host": "localhost:5984",
-			"scheme": "http"
-		}
+		"dev": {"scheme": "http", "host": "localhost:5984"}
 	}
 }

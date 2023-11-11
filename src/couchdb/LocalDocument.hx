@@ -1,5 +1,7 @@
 package couchdb;
 
+import tink.Url;
+import tink.web.proxy.Remote;
 using haxe.io.Path;
 
 /** Represents a CouchDB local document. **/
