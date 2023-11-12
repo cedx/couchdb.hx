@@ -5,7 +5,7 @@ package couchdb;
 class User implements Model {
 
 	/** The user name. **/
-	@:constant var name: String;
+	@:constant var name: String = @byDefault "";
 
 	/** The user roles. **/
 	@:constant var roles: List<String> = @byDefault new List();
@@ -15,7 +15,7 @@ class User implements Model {
 typedef UserInfo = {
 
 	/** The user name. **/
-	var name: String;
+	var name: Null<String>;
 
 	/** The user roles. **/
 	var roles: Array<String>;
