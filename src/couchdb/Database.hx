@@ -30,6 +30,9 @@ class Database implements Model {
 	var remote(get, never): Remote<RemoteApi>;
 		inline function get_remote() return @:privateAccess server.remote;
 
+	/** Compacts this database. **/
+	public function compact(?designDocument: String) return remote.use(name).compact(designDocument);
+
 	/** Creates this database. **/
 	public function create(?options: DatabaseCreateOptions) return remote.use(name).create({
 		n: options?.replicas,

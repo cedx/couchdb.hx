@@ -1,0 +1,3 @@
+@server = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
+@database = test
+@document = ddoc

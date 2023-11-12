@@ -45,15 +45,20 @@ import tink.Chunk;
 /** Manages the databases. **/
 private interface DatabaseController {
 
-	/** Checks whether a database exists. **/
+	/** Checks whether the database exists. **/
 	@:head("/")
 	final exists: Noise;
+
+	/** Compacts the database. **/
+	@:post("/_compact")
+	@:post('/_compact/$designDocument')
+	function compact(?designDocument: String): Noise;
 
 	/** Creates a new database. **/
 	@:put("/")
 	function create(?query: DatabaseCreateOptions): Noise;
 
-	/** Deletes a database. **/
+	/** Deletes the database. **/
 	@:delete("/")
 	function delete(): Noise;
 

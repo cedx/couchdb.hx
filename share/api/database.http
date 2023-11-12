@@ -1,18 +1,23 @@
 @server = {{scheme}}://{{$processEnv COUCHDB_USER}}:{{$processEnv COUCHDB_PASSWORD}}@{{host}}
 @database = test
 
-### Deletes a database.
+### Deletes the database.
 DELETE {{server}}/{{database}}
 Accept: application/json
 
-### Returns information about a database.
+### Returns information about the database.
 GET {{server}}/{{database}}
 Accept: application/json
 
-### Checks whether a database exists.
+### Checks whether the database exists.
 HEAD {{server}}/{{database}}
 Accept: application/json
 
 ### Creates a new database.
 PUT {{server}}/{{database}}
 Accept: application/json
+
+### Compacts the database.
+POST {{server}}/{{database}}/_compact
+Accept: application/json
+Content-Type: application/json
