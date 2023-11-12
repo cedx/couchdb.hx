@@ -23,6 +23,9 @@ class DesignDocument implements Model {
 	var remote(get, never): Remote<RemoteApi>;
 		inline function get_remote() return @:privateAccess db.server.remote;
 
+	/** Compacts the view indexes associated with this design document. **/
+	public function compact() return db.compact(key);
+
 	/** Returns an object for performing operations on a view. **/
 	public function use(view: String) return new View({design: this, key: view});
 }
