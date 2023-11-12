@@ -27,5 +27,5 @@ class DesignDocument implements Model {
 	public function compact() return db.compact(name);
 
 	/** Returns an object for performing operations on a view. **/
-	public function use(view: String) return new View({design: this, name: view});
+	public function view(name: String) return new View({design: this, name: name});
 }
