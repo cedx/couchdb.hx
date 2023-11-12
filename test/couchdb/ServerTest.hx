@@ -58,6 +58,9 @@ using AssertionTools;
 		return asserts;
 	}
 
+	/** Tests the `db()` method. **/
+	public function db() return assert(server.db("foo").name == "foo");
+
 	/** Tests the `fetch()` method. **/
 	public function fetch() {
 		server.fetch().next(info -> {
@@ -70,9 +73,6 @@ using AssertionTools;
 
 		return asserts;
 	}
-
-	/** Tests the `use()` method. **/
-	public function use() return assert(server.use("foo").name == "foo");
 
 	/** Tests the `uuids()` method. **/
 	public function uuids() {

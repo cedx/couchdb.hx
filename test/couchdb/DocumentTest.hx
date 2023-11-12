@@ -7,7 +7,7 @@ using AssertionTools;
 @:asserts final class DocumentTest {
 
 	/** The database instance. **/
-	final database = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984'}).use("test");
+	final database = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984'}).db("test");
 
 	/** Creates a new test. **/
 	public function new() {}

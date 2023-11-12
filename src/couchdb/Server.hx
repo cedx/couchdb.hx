@@ -80,6 +80,9 @@ class Server implements Model {
 		});
 	}
 
+	/** Returns an object for performing operations on a database. **/
+	public function db(database: String) return new Database({name: database, server: this});
+
 	/** Fetches information about this server. **/
 	public function fetch() return remote.fetch().next(json -> new Server({
 		features: json.features,
@@ -89,9 +92,6 @@ class Server implements Model {
 		vendor: json.vendor.name,
 		version: json.version
 	}));
-
-	/** Returns an object for performing operations on a database. **/
-	public function use(database: String) return new Database({name: database, server: this});
 
 	/** Requests one or more Universally Unique Identifiers (UUIDs) from this server. **/
 	public function uuids(count = 1) return remote.uuids({count: count}).next(response -> List.fromArray(response.uuids));

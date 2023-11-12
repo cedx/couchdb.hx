@@ -29,13 +29,13 @@ import tink.Chunk;
 	@:get("/_active_tasks")
 	final tasks: Array<Task>;
 
+	/** Returns an object for performing operations on a database. **/
+	@:sub('/$database')
+	function db(database: String): DatabaseController;
+
 	/** Fetches information about the server. **/
 	@:get("/")
 	function fetch(): ServerInfo;
-
-	/** Returns an object for performing operations on a database. **/
-	@:sub('/$database')
-	function use(database: String): DatabaseController;
 
 	/** Requests one or more Universally Unique Identifiers (UUIDs) from the server. **/
 	@:get("/_uuids")
