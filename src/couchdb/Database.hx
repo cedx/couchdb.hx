@@ -22,7 +22,7 @@ class Database implements Model {
 
 	/** Value indicating whether this database exists. **/
 	public var exists(get, never): Promise<Bool>;
-		function get_exists() return remote.use(name).exists()
+		function get_exists() return remote.db(name).exists()
 			.next(_ -> true)
 			.tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
 
@@ -31,23 +31,22 @@ class Database implements Model {
 		inline function get_remote() return @:privateAccess server.remote;
 
 	/** Compacts this database. **/
-	public function compact(?designDocument: String) return remote.use(name).compact(designDocument);
+	public function compact(?designDocument: String) return remote.db(name).compact(designDocument);
 
 	/** Creates this database. **/
-	public function create(?options: DatabaseCreateOptions) return remote.use(name).create({
-		n: options?.replicas,
-		partitioned: options?.partitioned,
-		q: options?.shards
-	});
+	public function create(?options: DatabaseCreateOptions) return remote.db(name).create(options);
 
 	/** Deletes this database. **/
-	public function delete() return remote.use(name).delete();
+	public function delete() return remote.db(name).delete();
 
 	/** Returns an object for performing operations on a design document. **/
 	public function design(name: String) return new DesignDocument({db: this, name: name});
 
+	/** Returns an object for performing operations on a document. **/
+	public function document<T>(id: String) return new Document<T>({db: this, id: id});
+
 	/** Fetches information about this database. **/
-	public function fetch() return remote.use(name).fetch().next(json -> new Database({
+	public function fetch() return remote.db(name).fetch().next(json -> new Database({
 		name: name,
 		server: server,
 		startTime: json.instance_start_time != "0" ? Date.fromTime(Std.parseFloat(json.instance_start_time)) : null
@@ -56,24 +55,21 @@ class Database implements Model {
 	/** Returns an object for performing operations on a local document. **/
 	public function local<T>(name: String) return new LocalDocument<T>({db: this, name: name});
 
-	/** Returns an object for performing operations on a document. **/
-	public function use<T>(document: String) return new Document<T>({db: this, id: document});
-
 	/** Returns an object for performing operations on a view. **/
-	public function view(designName: String, viewName: String) return design(designName).use(viewName);
+	public function view(designName: String, viewName: String) return design(designName).view(viewName);
 }
 
 /** Defines the options for creating a database. **/
 typedef DatabaseCreateOptions = {
 
+	/** The number of replicas (i.e. the copies of the database in the cluster). **/
+	var ?n: Int;
+
 	/** Value indicating whether to create a partitioned database. **/
 	var ?partitioned: Bool;
 
-	/** The number of replicas (i.e. the copies of the database in the cluster). **/
-	var ?replicas: Int;
-
 	/** The number of shards (i.e. the range partitions). **/
-	var ?shards: Int;
+	var ?q: Int;
 }
 
 /** Provides information about a database. **/
