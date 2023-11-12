@@ -20,7 +20,7 @@ class Session implements Model {
 	@:constant var token: String = @byDefault "";
 
 	/** The session user. **/
-	@:constant var user: User;
+	@:constant var user: Null<User> = @byDefault null;
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
@@ -38,7 +38,7 @@ class Session implements Model {
 		method: json.info.authenticated,
 		server: server,
 		token: token,
-		user: new User({name: json.userCtx.name, roles: json.userCtx.roles})
+		user: json.userCtx.name == null ? null : new User({name: json.userCtx.name, roles: json.userCtx.roles})
 	}));
 }
 

@@ -41,7 +41,7 @@ class Database implements Model {
 	public function delete() return remote.use(name).delete();
 
 	/** Returns an object for performing operations on a design document. **/
-	public inline function design(key: String) return new DesignDocument({db: this, key: key});
+	public function design(key: String) return new DesignDocument({db: this, key: key});
 
 	/** Fetches information about this database. **/
 	public function fetch() return remote.use(name).fetch().next(json -> new Database({
@@ -51,10 +51,10 @@ class Database implements Model {
 	}));
 
 	/** Returns an object for performing operations on a local document. **/
-	public inline function local<T>(key: String) return new LocalDocument<T>({db: this, key: key});
+	public function local<T>(key: String) return new LocalDocument<T>({db: this, key: key});
 
 	/** Returns an object for performing operations on a document. **/
-	public inline function use<T>(document: String) return new Document<T>({db: this, id: document});
+	public function use<T>(document: String) return new Document<T>({db: this, id: document});
 
 	/** Returns an object for performing operations on a view. **/
 	public function view(designKey: String, viewKey: String) return design(designKey).use(viewKey);

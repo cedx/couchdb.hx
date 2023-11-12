@@ -24,5 +24,5 @@ class DesignDocument implements Model {
 		inline function get_remote() return @:privateAccess db.server.remote;
 
 	/** Returns an object for performing operations on a view. **/
-	public inline function use(view: String) return new View({design: this, key: view});
+	public function use(view: String) return new View({design: this, key: view});
 }

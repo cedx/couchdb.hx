@@ -20,7 +20,7 @@ class Server implements Model {
 	/** The Git revision. **/
 	@:constant var gitSha: String = @byDefault "";
 
-	/** The server URL. **/
+	/** The server URL, including username and password if required. **/
 	@:constant var url: Url;
 
 	/** The server identifier. **/
@@ -46,6 +46,10 @@ class Server implements Model {
 		function get_isUp() return remote.isUp()
 			.next(_ -> true)
 			.tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
+
+	/** Returns information about the current session. **/
+	public var session(get, never): Promise<Session>;
+		function get_session() return new Session({server: this}).fetch();
 
 	/** The list of active tasks. **/
 	public var tasks(get, never): Promise<List<Task>>;
@@ -87,7 +91,7 @@ class Server implements Model {
 	}));
 
 	/** Returns an object for performing operations on a database. **/
-	public inline function use(database: String) return new Database({name: database, server: this});
+	public function use(database: String) return new Database({name: database, server: this});
 
 	/** Requests one or more Universally Unique Identifiers (UUIDs) from this server. **/
 	public function uuids(count = 1) return remote.uuids({count: count}).next(response -> List.fromArray(response.uuids));
