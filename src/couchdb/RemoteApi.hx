@@ -1,5 +1,6 @@
 package couchdb;
 
+import couchdb.Database.DatabaseCreateOptions;
 import couchdb.Database.DatabaseInfo;
 import couchdb.Server.ServerInfo;
 import couchdb.Session.SessionInfo;
@@ -66,6 +67,10 @@ private interface DatabaseController {
 	@:sub('/_design/$name')
 	function design(name: String): DesignDocumentController;
 
+	/** Returns an object for performing operations on a document. **/
+	@:sub('/$document')
+	function document(document: String): DocumentController;
+
 	/** Fetches information about the database. **/
 	@:get("/")
 	function fetch(): DatabaseInfo;
@@ -73,27 +78,15 @@ private interface DatabaseController {
 	/** Returns an object for performing operations on a local document. **/
 	@:sub('/_local/$name')
 	function local(name: String): LocalDocumentController;
-
-	/** Returns an object for performing operations on a document. **/
-	@:sub('/$document')
-	function use(document: String): DocumentController;
-}
-
-/** Defines the options for creating a database. **/
-private typedef DatabaseCreateOptions = {
-
-	/** The number of replicas (i.e. the copies of the database in the cluster). **/
-	var ?n: Int;
-
-	/** Value indicating whether to create a partitioned database. **/
-	var ?partitioned: Bool;
-
-	/** The number of shards (i.e. the range partitions). **/
-	var ?q: Int;
 }
 
 /** Manages the design documents. **/
-private interface DesignDocumentController {}
+private interface DesignDocumentController {
+
+	/** Returns an object for performing operations on a view. **/
+	@:sub('/_view/$view')
+	function view(view: String): ViewController;
+}
 
 /** Manages the documents. **/
 private interface DocumentController {}
@@ -115,4 +108,12 @@ private interface SessionController {
 	/** Fetches information about the session. **/
 	@:get("/")
 	function fetch(): SessionInfo;
+}
+
+/** Manages the views. **/
+private interface ViewController {
+
+	/** Queries the view. **/
+	@:get("/")
+	function query<Key, Value, Record>(): DocumentList<Key, Value, Record>;
 }
