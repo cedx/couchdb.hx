@@ -14,13 +14,13 @@ class LocalDocument<T> implements Model {
 	@:constant var db: Database;
 
 	/** The document identifier. **/
-	@:computed var id: String = '_local/$key';
+	@:computed var id: String = '_local/$name';
 
-	/** The document key. **/
-	@:constant var key: String;
+	/** The document name. **/
+	@:constant var name: String;
 
 	/** The document URL. **/
-	@:computed var url: Url = Url.parse(db.url.toString().addTrailingSlash()).resolve('_local/$key');
+	@:computed var url: Url = Url.parse(db.url.toString().addTrailingSlash()).resolve('_local/$name');
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;

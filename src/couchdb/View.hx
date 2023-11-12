@@ -9,11 +9,11 @@ class View implements Model {
 	/** The associated design document. **/
 	@:constant var design: DesignDocument;
 
-	/** The view key. **/
-	@:constant var key: String;
+	/** The view name. **/
+	@:constant var name: String;
 
 	/** The view URL. **/
-	@:computed var url: Url = Url.parse(design.url.toString().addTrailingSlash()).resolve('_view/$key');
+	@:computed var url: Url = Url.parse(design.url.toString().addTrailingSlash()).resolve('_view/$name');
 }
 
 /** Defines the query parameters of a view. **/

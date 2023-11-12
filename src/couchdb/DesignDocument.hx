@@ -11,10 +11,10 @@ class DesignDocument implements Model {
 	@:constant var db: Database;
 
 	/** The document identifier. **/
-	@:computed var id: String = '_design/$key';
+	@:computed var id: String = '_design/$name';
 
-	/** The document key. **/
-	@:constant var key: String;
+	/** The document name. **/
+	@:constant var name: String;
 
 	/** The document URL. **/
 	@:computed var url: Url = Url.parse(db.url.toString().addTrailingSlash()).resolve(id);
@@ -24,8 +24,8 @@ class DesignDocument implements Model {
 		inline function get_remote() return @:privateAccess db.server.remote;
 
 	/** Compacts the view indexes associated with this design document. **/
-	public function compact() return db.compact(key);
+	public function compact() return db.compact(name);
 
 	/** Returns an object for performing operations on a view. **/
-	public function use(view: String) return new View({design: this, key: view});
+	public function use(view: String) return new View({design: this, name: view});
 }

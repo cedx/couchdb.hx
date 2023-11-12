@@ -63,16 +63,16 @@ private interface DatabaseController {
 	function delete(): Noise;
 
 	/** Returns an object for performing operations on a design document. **/
-	@:sub('/_design/$key')
-	function design(key: String): DesignDocumentController;
+	@:sub('/_design/$name')
+	function design(name: String): DesignDocumentController;
 
 	/** Fetches information about the database. **/
 	@:get("/")
 	function fetch(): DatabaseInfo;
 
 	/** Returns an object for performing operations on a local document. **/
-	@:sub('/_local/$key')
-	function local(key: String): LocalDocumentController;
+	@:sub('/_local/$name')
+	function local(name: String): LocalDocumentController;
 
 	/** Returns an object for performing operations on a document. **/
 	@:sub('/$document')

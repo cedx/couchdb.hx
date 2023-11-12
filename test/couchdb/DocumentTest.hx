@@ -22,5 +22,5 @@ using AssertionTools;
 	@:variant("foo")
 	@:variant("bar")
 	public function url(input: String)
-		return assert(new Document({database: database, key: input}).url == '${database.url}/$input');
+		return assert(new Document({db: database, id: input}).url == '${database.url}/$input');
 }
