@@ -6,8 +6,8 @@ An opinionated [Apache CouchDB](https://couchdb.apache.org) client for [Haxe](ht
 > **Not ready** for production!
 
 ## Documentation
-- [User guide](https://docs.belin.io/couchdb.hx)
-- [API reference](https://docs.belin.io/couchdb.hx/api)
+- [User guide](https://cedx.github.io/couchdb.hx)
+- [API reference](https://cedx.github.io/couchdb.hx/api)
 
 ## Development
 - [Git repository](https://github.com/cedx/couchdb.hx)
@@ -15,4 +15,4 @@ An opinionated [Apache CouchDB](https://couchdb.apache.org) client for [Haxe](ht
 - [Submit an issue](https://github.com/cedx/couchdb.hx/issues)
 
 ## License
-[CouchDB for Haxe](https://docs.belin.io/couchdb.hx) is distributed under the MIT License.
+[CouchDB for Haxe](https://cedx.github.io/couchdb.hx) is distributed under the MIT License.
