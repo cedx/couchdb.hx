@@ -49,7 +49,7 @@ class Session implements Model {
 			case Success(header):
 				final cookie = (header: String).split(";").shift();
 				@:privateAccess server.remote = Web.connect((server.url: RemoteApi), {headers: [new HeaderField(COOKIE, cookie)]});
-				new Session({server: server, token: cookie.split("=").pop(), user: (Json.parse(response.body): User)});
+				new Session({server: server, token: cookie.split("=").pop(), user: Json.parse(response.body)});
 		});
 	}
 

@@ -9,6 +9,7 @@ function main() {
 	final tests = TestBatch.make([
 		new couchdb.ServerTest(),
 		new couchdb.DatabaseTest(),
+		new couchdb.SessionTest(),
 		//new couchdb.DocumentTest()
 	]);
 
