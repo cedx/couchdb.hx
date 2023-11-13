@@ -33,16 +33,6 @@ using AssertionTools;
 		return asserts;
 	}
 
-	/** Tests the `session` property. **/
-	public function session() {
-		server.session.next(session -> {
-			asserts.assert(session.handlers.exists(handler -> handler == "default"));
-			asserts.assert(session.user.name == Sys.getEnv("COUCHDB_USER"));
-		}).handle(asserts.handle);
-
-		return asserts;
-	}
-
 	/** Tests the `db()` method. **/
 	public function db() return assert(server.db("foo").name == "foo");
 

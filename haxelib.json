@@ -5,7 +5,7 @@
 	"description": "An opinionated Apache CouchDB client for Haxe.",
 	"license": "MIT",
 	"name": "couchdb",
-	"releasenote": "Provides a first set of the database APIs.",
+	"releasenote": "Provides a first set of the database APIs, added support for cookie authentication.",
 	"tags": ["api", "client", "couchdb", "cross", "database", "db", "document", "nosql"],
 	"url": "https://docs.belin.io/couchdb.hx",
 	"version": "0.2.0"

@@ -20,7 +20,7 @@ class LocalDocument<T> implements Model {
 	@:constant var name: String;
 
 	/** The document URL. **/
-	@:computed var url: Url = Url.parse(db.url.toString().addTrailingSlash()).resolve('_local/$name');
+	@:computed var url: Url = Url.parse(db.url.toString().addTrailingSlash()).resolve(id);
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
