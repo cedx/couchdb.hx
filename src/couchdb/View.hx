@@ -21,8 +21,14 @@ class View implements Model {
 		inline function get_remote() return @:privateAccess design.db.server.remote;
 
 	/** Queries this view. **/
+	/* TODO
 	public function query<Key, Value, Record>(?options: ViewOptions)
 		return remote.db(design.db.name).design(design.name).view(name).query(options);
+	}
+	public function query<Key, Value, Record>(key: Class<Key>, value: Class<Value>, record: Class<Record>, ?options: ViewOptions): DocumentList<Key, Value, Record> {
+		trace(url.toString());
+		return tink.http.Client.fetch(url).all().next(response -> (tink.Json.parse(response.body): DocumentList<Key, Value, Record>));
+	}*/
 }
 
 /** Defines the query parameters of a view. **/

@@ -97,10 +97,6 @@ private interface LocalDocumentController {}
 /** Manages the user sessions. **/
 private interface SessionController {
 
-	/** Initiates a new session for the specified user credentials. **/
-	@:post("/")
-	function create(body: {name: String, password: String}, ?query: {next: String}): UserInfo;
-
 	/** Deletes a session. **/
 	@:delete("/")
 	function delete(): Noise;
@@ -114,6 +110,6 @@ private interface SessionController {
 private interface ViewController {
 
 	/** Queries the view. **/
-	@:get("/")
-	function query<Key, Value, Record>(): DocumentList<Key, Value, Record>;
+	//@:get("/")
+	//function query<Key, Value, Record>(): DocumentListData<Key, Value, Record>;
 }

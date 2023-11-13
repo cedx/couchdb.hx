@@ -45,7 +45,7 @@ class DocumentListItem<Key, Value, Record> implements Model {
 	@:constant var doc: Null<Record> = @byDefault null;
 
 	/** The document identifier. **/
-	@:constant var id: String;
+	@:constant var id: String = @byDefault "";
 
 	/** The row key. **/
 	@:constant var key: Key;
@@ -61,7 +61,7 @@ typedef DocumentListItemData<Key, Value, Record> = {
 	var ?doc: Record;
 
 	/** The document identifier. **/
-	var id: String;
+	var ?id: String;
 
 	/** The row key. **/
 	var key: Key;
