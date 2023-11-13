@@ -22,6 +22,9 @@ class DocumentList<Key, Value, Record> implements Model {
 		offset: json.offset,
 		totalCount: json.total_rows
 	});
+
+	/** Returns a new iterator that allows iterating the items of this list. **/
+	public inline function iterator() return items.iterator();
 }
 
 /** Defines the data of a document list. **/
