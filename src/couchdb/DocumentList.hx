@@ -2,10 +2,10 @@ package couchdb;
 
 /** Represents a document list. **/
 @:jsonParse(couchdb.DocumentList.fromJson)
-class DocumentList<Key, Value, Record> implements Model {
+class DocumentList<Key, Value, Doc> implements Model {
 
 	/** The list of row objects. **/
-	@:constant var items: List<DocumentListItem<Key, Value, Record>> = @byDefault new List();
+	@:constant var items: List<DocumentListItem<Key, Value, Doc>> = @byDefault new List();
 
 	/** The number of row objects. **/
 	@:computed var length: Int = items.length;
@@ -17,7 +17,7 @@ class DocumentList<Key, Value, Record> implements Model {
 	@:constant var totalCount: Int = @byDefault 0;
 
 	/** Creates a new task from the specified JSON object. **/
-	public static function fromJson<Key, Value, Record>(json: DocumentListData<Key, Value, Record>) return new DocumentList({
+	public static function fromJson<Key, Value, Doc>(json: DocumentListData<Key, Value, Doc>) return new DocumentList({
 		items: json.rows.map(DocumentListItem.new),
 		offset: json.offset,
 		totalCount: json.total_rows
@@ -28,13 +28,13 @@ class DocumentList<Key, Value, Record> implements Model {
 }
 
 /** Defines the data of a document list. **/
-typedef DocumentListData<Key, Value, Record> = {
+typedef DocumentListData<Key, Value, Doc> = {
 
 	/** The offset where the document list started. **/
 	var ?offset: Int;
 
 	/** The list of row objects. **/
-	var rows: Array<DocumentListItemData<Key, Value, Record>>;
+	var rows: Array<DocumentListItemData<Key, Value, Doc>>;
 
 	/** The number of documents in the database or view. **/
 	var ?total_rows: Int;
@@ -42,10 +42,10 @@ typedef DocumentListData<Key, Value, Record> = {
 
 /** Represents a row of a document list. **/
 @:jsonParse(json -> new couchdb.DocumentList.DocumentListItem(json))
-class DocumentListItem<Key, Value, Record> implements Model {
+class DocumentListItem<Key, Value, Doc> implements Model {
 
 	/** The document. **/
-	@:constant var doc: Null<Record> = @byDefault null;
+	@:constant var doc: Null<Doc> = @byDefault null;
 
 	/** The document identifier. **/
 	@:constant var id: String = @byDefault "";
@@ -58,10 +58,10 @@ class DocumentListItem<Key, Value, Record> implements Model {
 }
 
 /** Defines the data of a document list item. **/
-typedef DocumentListItemData<Key, Value, Record> = {
+typedef DocumentListItemData<Key, Value, Doc> = {
 
 	/** The document. **/
-	var ?doc: Record;
+	var ?doc: Doc;
 
 	/** The document identifier. **/
 	var ?id: String;

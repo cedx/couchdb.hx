@@ -88,10 +88,10 @@ private interface DesignDocumentController {
 }
 
 /** Manages the documents. **/
-private interface DocumentController {}
+private interface DocumentController { /* TODO */ }
 
 /** Manages the local documents. **/
-private interface LocalDocumentController {}
+private interface LocalDocumentController { /* TODO */ }
 
 /** Manages the user sessions. **/
 private interface SessionController {
@@ -106,9 +106,4 @@ private interface SessionController {
 }
 
 /** Manages the views. **/
-private interface ViewController {
-
-	/** Queries the view. **/
-	//@:get("/")
-	//function query<Key, Value, Record>(): DocumentListData<Key, Value, Record>;
-}
+private interface ViewController { /* TODO */ }

@@ -1,6 +1,9 @@
 package couchdb;
 
+import haxe.Json;
+import tink.QueryString;
 import tink.Url;
+import tink.http.Client;
 import tink.web.proxy.Remote;
 using haxe.io.Path;
 
@@ -21,14 +24,10 @@ class View implements Model {
 		inline function get_remote() return @:privateAccess design.db.server.remote;
 
 	/** Queries this view. **/
-	/* TODO
-	public function query<Key, Value, Record>(?options: ViewOptions)
-		return remote.db(design.db.name).design(design.name).view(name).query(options);
+	public function query<Key, Value, Doc>(?options: ViewOptions): Promise<DocumentList<Key, Value, Doc>> {
+		final query = QueryString.build(options);
+		return Client.fetch('$url?$query').all().next(response -> DocumentList.fromJson(Json.parse(response.body)));
 	}
-	public function query<Key, Value, Record>(?options: ViewOptions): DocumentList<Key, Value, Record> {
-		trace(url.toString());
-		return tink.http.Client.fetch(url).all().next(response -> (tink.Json.parse(response.body): DocumentList<Key, Value, Record>));
-	}*/
 }
 
 /** Defines the query parameters of a view. **/
