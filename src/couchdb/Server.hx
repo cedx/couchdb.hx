@@ -1,15 +1,9 @@
 package couchdb;
 
-import haxe.io.Mime;
 import tink.Chunk;
-import tink.Json;
 import tink.Url;
 import tink.Web;
-import tink.http.Client;
-import tink.http.Fetch.FetchOptions;
-import tink.http.Header.HeaderField;
 import tink.web.proxy.Remote;
-using haxe.io.Path;
 
 /** Represents a CouchDB server. **/
 class Server implements Model {
@@ -62,23 +56,7 @@ class Server implements Model {
 	public function new() remote = Web.connect((this.url: RemoteApi));
 
 	/** Initiates a new session for the specified user credentials. **/
-	public function authenticate(name: String, password: String) {
-		final body: Chunk = Json.stringify({name: name, password: password});
-		final options: FetchOptions = {
-			method: POST,
-			headers: [new HeaderField(CONTENT_LENGTH, body.length), new HeaderField(CONTENT_TYPE, Mime.ApplicationJson)],
-			body: body
-		};
-
-		final endpoint = Url.parse(url.toString().addTrailingSlash()).resolve("_session");
-		return Client.fetch(endpoint, options).all().next(response -> switch response.header.byName(SET_COOKIE) {
-			case Failure(error): Failure(error);
-			case Success(header):
-				final cookie = (header: String).split(";").shift();
-				remote = Web.connect((url: RemoteApi), {headers: [new HeaderField(COOKIE, cookie)]});
-				new Session({server: this, token: cookie.split("=").pop(), user: (Json.parse(response.body): User)});
-		});
-	}
+	public function authenticate(name: String, password: String) return new Session({server: this}).create(name, password);
 
 	/** Returns an object for performing operations on a database. **/
 	public function db(database: String) return new Database({name: database, server: this});

@@ -1,8 +1,16 @@
 package couchdb;
 
 import couchdb.User.UserInfo;
+import haxe.io.Mime;
+import tink.Chunk;
+import tink.Json;
+import tink.Url;
 import tink.Web;
+import tink.http.Client;
+import tink.http.Fetch.FetchOptions;
+import tink.http.Header.HeaderField;
 import tink.web.proxy.Remote;
+using haxe.io.Path;
 
 /** Represents a CouchDB session. **/
 class Session implements Model {
@@ -25,6 +33,25 @@ class Session implements Model {
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
 		inline function get_remote() return @:privateAccess server.remote;
+
+	/** Initiates a new session for the specified user credentials. **/
+	public function create(name: String, password: String) {
+		final body: Chunk = Json.stringify({name: name, password: password});
+		final options: FetchOptions = {
+			method: POST,
+			headers: [new HeaderField(CONTENT_LENGTH, body.length), new HeaderField(CONTENT_TYPE, Mime.ApplicationJson)],
+			body: body
+		};
+
+		final url = Url.parse(server.url.toString().addTrailingSlash()).resolve("_session");
+		return Client.fetch(url, options).all().next(response -> switch response.header.byName(SET_COOKIE) {
+			case Failure(error): Failure(error);
+			case Success(header):
+				final cookie = (header: String).split(";").shift();
+				@:privateAccess server.remote = Web.connect((server.url: RemoteApi), {headers: [new HeaderField(COOKIE, cookie)]});
+				new Session({server: server, token: cookie.split("=").pop(), user: (Json.parse(response.body): User)});
+		});
+	}
 
 	/** Deletes this session. **/
 	public function delete() return remote.session().delete().next(_ -> {

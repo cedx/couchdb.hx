@@ -10,6 +10,7 @@
 			"src/couchdb/Attachment",
 			"src/couchdb/Database",
 			"src/couchdb/DocumentList",
+			"src/couchdb/Query",
 			"src/couchdb/Server",
 			"src/couchdb/Task"
 		],

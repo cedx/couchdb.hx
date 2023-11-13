@@ -4,7 +4,6 @@ import couchdb.Database.DatabaseCreateOptions;
 import couchdb.Database.DatabaseInfo;
 import couchdb.Server.ServerInfo;
 import couchdb.Session.SessionInfo;
-import couchdb.User.UserInfo;
 import tink.Chunk;
 
 /** Defines the interface of the remote API. **/
