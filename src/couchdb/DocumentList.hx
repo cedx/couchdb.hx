@@ -16,7 +16,7 @@ class DocumentList<Key, Value, Doc> implements Model {
 	/** The total number of documents in the database or view. **/
 	@:constant var totalCount: Int = @byDefault 0;
 
-	/** Creates a new task from the specified JSON object. **/
+	/** Creates a new document list from the specified JSON object. **/
 	public static function fromJson<Key, Value, Doc>(json: DocumentListData<Key, Value, Doc>) return new DocumentList({
 		items: json.rows.map(DocumentListItem.new),
 		offset: json.offset,
