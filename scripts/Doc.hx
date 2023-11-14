@@ -15,7 +15,7 @@ function main() {
 		"--define", "source-path", "https://github.com/cedx/couchdb.hx/blob/main/src",
 		"--define", "themeColor", "0xea8220",
 		"--define", "version", Platform.packageVersion,
-		"--define", "website", "https://cedx.github.io/couchdb.hx",
+		"--define", "website", "https://github.com/cedx/couchdb.hx",
 		"--input-path", "var",
 		"--output-path", "docs/api",
 		"--title", "CouchDB for Haxe",
