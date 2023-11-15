@@ -2,7 +2,6 @@ package couchdb;
 
 import tink.Url;
 import tink.web.proxy.Remote;
-using haxe.io.Path;
 
 /** Represents a CouchDB document. **/
 class Document<T> implements Model {
@@ -17,7 +16,7 @@ class Document<T> implements Model {
 	@:constant var id: String;
 
 	/** The document URL. **/
-	@:computed var url: Url = Url.parse(db.url.toString().addTrailingSlash()).resolve(id);
+	@:computed var url: Url = '${db.url}/$id';
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;

@@ -4,7 +4,6 @@ import couchdb.User.UserInfo;
 import haxe.io.Mime;
 import tink.Chunk;
 import tink.Json;
-import tink.Url;
 import tink.Web;
 import tink.http.Client;
 import tink.http.Fetch.FetchOptions;
@@ -43,7 +42,7 @@ class Session implements Model {
 			body: body
 		};
 
-		final url = Url.parse(server.url.toString().addTrailingSlash()).resolve("_session");
+		final url = '${server.url.toString().removeTrailingSlashes()}/_session';
 		return Client.fetch(url, options).all().next(response -> switch response.header.byName(SET_COOKIE) {
 			case Failure(error): Failure(error);
 			case Success(header):

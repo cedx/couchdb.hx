@@ -70,8 +70,16 @@ typedef TaskInfo = {
 
 /** Defines the type of a task. **/
 enum abstract TaskType(String) from String to String {
+
+	/** A database compaction task. **/
 	var DatabaseCompaction = "database_compaction";
+
+	/** An indexation task. **/
 	var Indexer = "indexer";
+
+	/** A replication task. **/
 	var Replication = "replication";
+
+	/** A view compaction task. **/
 	var ViewCompaction = "view_compaction";
 }

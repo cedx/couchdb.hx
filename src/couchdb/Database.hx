@@ -18,7 +18,7 @@ class Database implements Model {
 	@:constant var startTime: Null<Date> = @byDefault null;
 
 	/** The database URL. **/
-	@:computed var url: Url = Url.parse(server.url.toString().addTrailingSlash()).resolve(name);
+	@:computed var url: Url = '${server.url.toString().removeTrailingSlashes()}/$name';
 
 	/** Value indicating whether this database exists. **/
 	public var exists(get, never): Promise<Bool>;
