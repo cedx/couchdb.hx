@@ -8,5 +8,5 @@
 	"releasenote": "Provides a first set of the database APIs.",
 	"tags": ["api", "client", "couchdb", "cross", "database", "db", "document", "nosql"],
 	"url": "https://github.com/cedx/couchdb.hx",
-	"version": "0.2.0"
+	"version": "0.2.1"
 }
