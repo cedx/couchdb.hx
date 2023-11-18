@@ -5,6 +5,7 @@ import tink.QueryString;
 import tink.Url;
 import tink.http.Client;
 import tink.web.proxy.Remote;
+using StringTools;
 
 /** Represents a CouchDB view. **/
 class View implements Model {
@@ -16,7 +17,7 @@ class View implements Model {
 	@:constant var name: String;
 
 	/** The view URL. **/
-	@:computed var url: Url = '${design.url}/_view/$name';
+	@:computed var url: Url = '${design.url}/_view/${name.urlEncode()}';
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;

@@ -2,6 +2,7 @@ package couchdb;
 
 import tink.Url;
 import tink.web.proxy.Remote;
+using StringTools;
 
 /** Represents a CouchDB design document. **/
 class DesignDocument implements Model {
@@ -16,7 +17,7 @@ class DesignDocument implements Model {
 	@:constant var name: String;
 
 	/** The document URL. **/
-	@:computed var url: Url = '${db.url}/$id';
+	@:computed var url: Url = '${db.url}/_design/${name.urlEncode()}';
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
