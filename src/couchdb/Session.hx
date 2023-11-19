@@ -5,11 +5,9 @@ import haxe.io.Mime;
 import tink.Chunk;
 import tink.Json;
 import tink.Web;
-import tink.http.Client;
 import tink.http.Fetch.FetchOptions;
 import tink.http.Header.HeaderField;
 import tink.web.proxy.Remote;
-using haxe.io.Path;
 
 /** Represents a CouchDB session. **/
 class Session implements Model {
@@ -42,8 +40,7 @@ class Session implements Model {
 			body: body
 		};
 
-		final url = '${server.url.toString().removeTrailingSlashes()}/_session';
-		return Client.fetch(url, options).all().next(response -> switch response.header.byName(SET_COOKIE) {
+		return server.request("_session", options).next(response -> switch response.header.byName(SET_COOKIE) {
 			case Failure(error): Failure(error);
 			case Success(header):
 				final cookie = (header: String).split(";").shift();

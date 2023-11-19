@@ -3,7 +3,6 @@ package couchdb;
 import tink.Url;
 import tink.web.proxy.Remote;
 using StringTools;
-using haxe.io.Path;
 
 /** Represents a CouchDB database. **/
 class Database implements Model {
@@ -18,7 +17,7 @@ class Database implements Model {
 	@:constant var startTime: Null<Date> = @byDefault null;
 
 	/** The database URL. **/
-	@:computed var url: Url = '${server.url.toString().removeTrailingSlashes()}/${name.urlEncode()}';
+	@:computed var url: Url = server.url.resolve(name.urlEncode());
 
 	/** Value indicating whether this database exists. **/
 	public var exists(get, never): Promise<Bool>;

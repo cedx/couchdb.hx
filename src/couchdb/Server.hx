@@ -1,8 +1,10 @@
 package couchdb;
 
+import tink.http.Client;
 import tink.Chunk;
 import tink.Url;
 import tink.Web;
+import tink.http.Fetch.FetchOptions;
 import tink.http.Response.IncomingResponse;
 import tink.web.proxy.Remote;
 
@@ -71,6 +73,12 @@ class Server implements Model {
 		vendor: json.vendor.name,
 		version: json.version
 	}));
+
+	/** Performs a custom HTTP request. **/
+	public function request(url: Url, ?options: FetchOptions) {
+		// TODO: cookie auth.
+		return Client.fetch(this.url.resolve(url), options).all();
+	}
 
 	/** Requests one or more Universally Unique Identifiers (UUIDs) from this server. **/
 	public function uuids(count = 1) return remote.uuids({count: count}).next(response -> List.fromArray(response.uuids));

@@ -17,7 +17,7 @@ class Document<T> implements Model {
 	@:constant var id: String;
 
 	/** The document URL. **/
-	@:computed var url: Url = '${db.url}/${id.urlEncode()}';
+	@:computed var url: Url = db.url.resolve(id.urlEncode());
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;

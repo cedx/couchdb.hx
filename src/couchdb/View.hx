@@ -3,7 +3,6 @@ package couchdb;
 import haxe.Json;
 import tink.QueryString;
 import tink.Url;
-import tink.http.Client;
 import tink.web.proxy.Remote;
 using StringTools;
 
@@ -17,7 +16,7 @@ class View implements Model {
 	@:constant var name: String;
 
 	/** The view URL. **/
-	@:computed var url: Url = '${design.url}/_view/${name.urlEncode()}';
+	@:computed var url: Url = design.url.resolve('_view/${name.urlEncode()}');
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
@@ -26,7 +25,7 @@ class View implements Model {
 	/** Queries this view. **/
 	public function query<Key, Value, Doc>(?options: ViewOptions): Promise<DocumentList<Key, Value, Doc>> {
 		final query = QueryString.build(options);
-		return Client.fetch('$url?$query').all().next(response -> DocumentList.fromJson(Json.parse(response.body)));
+		return design.db.server.request('$url?$query').next(response -> DocumentList.fromJson(Json.parse(response.body)));
 	}
 }
 

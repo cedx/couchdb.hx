@@ -30,7 +30,7 @@ using AssertionTools;
 	@:variant("foo")
 	@:variant("bar")
 	public function url(input: String)
-		return assert(new Database({name: input, server: server}).url == '${server.url}/$input');
+		return assert(new Database({name: input, server: server}).url.toString() == server.url.resolve(input).toString());
 
 	/** Tests the `create()` method. **/
 	public function create() {

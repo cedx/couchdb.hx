@@ -17,7 +17,7 @@ class DesignDocument implements Model {
 	@:constant var name: String;
 
 	/** The document URL. **/
-	@:computed var url: Url = '${db.url}/_design/${name.urlEncode()}';
+	@:computed var url: Url = db.url.resolve('_design/${name.urlEncode()}');
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
