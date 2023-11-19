@@ -10,7 +10,7 @@ using AssertionTools;
 	final database: Database;
 
 	/** The server instance. **/
-	final server = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984'});
+	final server = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984/'});
 
 	/** Creates a new test. **/
 	public function new() database = server.db("test");
