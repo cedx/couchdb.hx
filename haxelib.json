@@ -2,7 +2,7 @@
 	"classPath": "src/",
 	"contributors": ["cedx"],
 	"dependencies": {"coconut.data": "", "tink_web": ""},
-	"description": "An opinionated Apache CouchDB client for Haxe.",
+	"description": "An opinionated Apache CouchDB client.",
 	"license": "MIT",
 	"name": "couchdb",
 	"releasenote": "Fixed a bug when document keys contain colons.",
