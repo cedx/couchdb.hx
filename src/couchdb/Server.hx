@@ -75,9 +75,9 @@ class Server implements Model {
 	}));
 
 	/** Performs a custom HTTP request. **/
-	public function request(url: Url, ?options: FetchOptions) {
+	public function request(resource: Url, ?options: FetchOptions) {
 		// TODO: cookie auth.
-		return Client.fetch(this.url.resolve(url), options).all();
+		return Client.fetch(url.resolve(resource), options).all();
 	}
 
 	/** Requests one or more Universally Unique Identifiers (UUIDs) from this server. **/
