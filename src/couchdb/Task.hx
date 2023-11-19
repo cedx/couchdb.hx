@@ -33,6 +33,7 @@ class Task implements Model {
 		changesDone: json.changes_done,
 		database: json.database,
 		pid: json.pid,
+		progress: json.progress,
 		startedOn: Date.fromTime(json.started_on * 1_000),
 		totalChanges: json.total_changes,
 		type: json.type,
