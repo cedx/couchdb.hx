@@ -14,7 +14,7 @@ import tink.Chunk;
 	final databases: Array<String>;
 
 	/** The binary content for the `favicon.ico` site icon. **/
-	@:get
+	@:get("/favicon.ico")
 	final favicon: Chunk;
 
 	/** Value indicating whether the server is up. **/
