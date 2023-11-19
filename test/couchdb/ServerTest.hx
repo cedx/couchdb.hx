@@ -23,7 +23,7 @@ using AssertionTools;
 
 	/** Tests the `favicon` property. **/
 	public function favicon() {
-		asserts.doesNotReject(server.favicon).handle(asserts.handle);
+		server.favicon.next(favicon -> asserts.assert(favicon.length > 0)).handle(asserts.handle);
 		return asserts;
 	}
 

@@ -3,6 +3,7 @@ package couchdb;
 import tink.Chunk;
 import tink.Url;
 import tink.Web;
+import tink.http.Response.IncomingResponse;
 import tink.web.proxy.Remote;
 
 /** Represents a CouchDB server. **/
@@ -33,7 +34,7 @@ class Server implements Model {
 
 	/** The binary content for the `favicon.ico` site icon. **/
 	public var favicon(get, never): Promise<Chunk>;
-		inline function get_favicon() return remote.favicon();
+		inline function get_favicon() return remote.favicon().next(IncomingResponse.readAll);
 
 	/** Value indicating whether this server is up. **/
 	public var isUp(get, never): Promise<Bool>;
