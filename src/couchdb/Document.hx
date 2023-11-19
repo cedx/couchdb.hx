@@ -11,15 +11,15 @@ class Document<T> implements Model {
 	@:constant var data: Null<T> = @byDefault null;
 
 	/** The associated database. **/
-	@:constant var db: Database;
+	@:constant var database: Database;
 
 	/** The document identifier. **/
 	@:constant var id: String;
 
 	/** The document URL. **/
-	@:computed var url: Url = db.url.resolve(id.urlEncode());
+	@:computed var url: Url = database.url.resolve(id.urlEncode());
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
-		inline function get_remote() return @:privateAccess db.server.remote;
+		inline function get_remote() return @:privateAccess database.server.remote;
 }

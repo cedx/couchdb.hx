@@ -14,8 +14,8 @@ using AssertionTools;
 	/** Tests the `databases` property. **/
 	public function databases() {
 		server.databases.next(databases -> {
-			asserts.assert(databases.exists(db -> db.name == "_replicator"));
-			asserts.assert(databases.exists(db -> db.name == "_users"));
+			asserts.assert(databases.exists(database -> database.name == "_replicator"));
+			asserts.assert(databases.exists(database -> database.name == "_users"));
 		}).handle(asserts.handle);
 
 		return asserts;
@@ -41,8 +41,8 @@ using AssertionTools;
 		return asserts;
 	}
 
-	/** Tests the `db()` method. **/
-	public function db() return assert(server.db("foo").name == "foo");
+	/** Tests the `database()` method. **/
+	public function database() return assert(server.database("foo").name == "foo");
 
 	/** Tests the `fetch()` method. **/
 	public function fetch() {

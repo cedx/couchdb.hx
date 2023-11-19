@@ -13,7 +13,7 @@ using AssertionTools;
 	final server = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984/'});
 
 	/** Creates a new test. **/
-	public function new() database = server.db("test");
+	public function new() database = server.database("test");
 
 	/** Method invoked after each test. **/
 	@:after public function after() return Client.fetch(database.url, {method: DELETE}).noise();

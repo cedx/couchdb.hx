@@ -21,7 +21,7 @@ class Database implements Model {
 
 	/** Value indicating whether this database exists. **/
 	public var exists(get, never): Promise<Bool>;
-		function get_exists() return remote.db(name).exists()
+		function get_exists() return remote.database(name).exists()
 			.next(_ -> true)
 			.tryRecover(error -> error.code == NotFound ? Success(false) : Failure(error));
 
@@ -30,29 +30,29 @@ class Database implements Model {
 		inline function get_remote() return @:privateAccess server.remote;
 
 	/** Compacts this database. **/
-	public function compact(?designDocument: String) return remote.db(name).compact(designDocument);
+	public function compact(?designDocument: String) return remote.database(name).compact(designDocument);
 
 	/** Creates this database. **/
-	public function create(?options: DatabaseCreateOptions) return remote.db(name).create(options);
+	public function create(?options: DatabaseCreateOptions) return remote.database(name).create(options);
 
 	/** Deletes this database. **/
-	public function delete() return remote.db(name).delete();
+	public function delete() return remote.database(name).delete();
 
 	/** Returns an object for performing operations on a design document. **/
-	public function design(name: String) return new DesignDocument({db: this, name: name});
+	public function design(name: String) return new DesignDocument({database: this, name: name});
 
 	/** Returns an object for performing operations on a document. **/
-	public function document<T>(id: String) return new Document<T>({db: this, id: id});
+	public function document<T>(id: String) return new Document<T>({database: this, id: id});
 
 	/** Fetches information about this database. **/
-	public function fetch() return remote.db(name).fetch().next(json -> new Database({
+	public function fetch() return remote.database(name).fetch().next(json -> new Database({
 		name: name,
 		server: server,
 		startTime: json.instance_start_time != "0" ? Date.fromTime(Std.parseFloat(json.instance_start_time)) : null
 	}));
 
 	/** Returns an object for performing operations on a local document. **/
-	public function local<T>(name: String) return new LocalDocument<T>({db: this, name: name});
+	public function local<T>(name: String) return new LocalDocument<T>({database: this, name: name});
 
 	/** Returns an object for performing operations on a view. **/
 	public function view(designName: String, viewName: String) return design(designName).view(viewName);

@@ -20,12 +20,12 @@ class View implements Model {
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
-		inline function get_remote() return @:privateAccess design.db.server.remote;
+		inline function get_remote() return @:privateAccess design.database.server.remote;
 
 	/** Queries this view. **/
 	public function query<Key, Value, Doc>(?options: ViewOptions): Promise<DocumentList<Key, Value, Doc>> {
 		final query = QueryString.build(options);
-		return design.db.server.request('$url?$query').next(response -> DocumentList.fromJson(Json.parse(response.body)));
+		return design.database.server.request('$url?$query').next(response -> DocumentList.fromJson(Json.parse(response.body)));
 	}
 }
 

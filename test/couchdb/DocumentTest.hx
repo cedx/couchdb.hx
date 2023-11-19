@@ -7,7 +7,7 @@ using AssertionTools;
 @:asserts final class DocumentTest {
 
 	/** The database instance. **/
-	final database = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984/'}).db("test");
+	final database = new Server({url: 'http://${Sys.getEnv("COUCHDB_USER")}:${Sys.getEnv("COUCHDB_PASSWORD")}@localhost:5984/'}).database("test");
 
 	/** Creates a new test. **/
 	public function new() {}
@@ -22,5 +22,5 @@ using AssertionTools;
 	@:variant("foo")
 	@:variant("bar")
 	public function url(input: String)
-		return assert(new Document({db: database, id: input}).url == '${database.url}/$input');
+		return assert(new Document({database: database, id: input}).url == '${database.url}/$input');
 }

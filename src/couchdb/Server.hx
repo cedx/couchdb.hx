@@ -62,7 +62,7 @@ class Server implements Model {
 	public function authenticate(name: String, password: String) return new Session({server: this}).create(name, password);
 
 	/** Returns an object for performing operations on a database. **/
-	public function db(name: String) return new Database({name: name, server: this});
+	public function database(name: String) return new Database({name: name, server: this});
 
 	/** Fetches information about this server. **/
 	public function fetch() return remote.fetch().next(json -> new Server({

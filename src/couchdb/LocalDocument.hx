@@ -11,7 +11,7 @@ class LocalDocument<T> implements Model {
 	@:constant var data: Null<T> = @byDefault null;
 
 	/** The associated database. **/
-	@:constant var db: Database;
+	@:constant var database: Database;
 
 	/** The document identifier. **/
 	@:computed var id: String = '_local/$name';
@@ -20,9 +20,9 @@ class LocalDocument<T> implements Model {
 	@:constant var name: String;
 
 	/** The document URL. **/
-	@:computed var url: Url = db.url.resolve('_local/${name.urlEncode()}');
+	@:computed var url: Url = database.url.resolve('_local/${name.urlEncode()}');
 
 	/** The remote API client. **/
 	var remote(get, never): Remote<RemoteApi>;
-		inline function get_remote() return @:privateAccess db.server.remote;
+		inline function get_remote() return @:privateAccess database.server.remote;
 }

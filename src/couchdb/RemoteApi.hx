@@ -31,7 +31,7 @@ import tink.Chunk;
 
 	/** Returns an object for performing operations on a database. **/
 	@:sub('/$database')
-	function db(database: String): DatabaseController;
+	function database(database: String): DatabaseController;
 
 	/** Fetches information about the server. **/
 	@:get("/")
