@@ -37,7 +37,7 @@ using AssertionTools;
 	/** Tests the `fetch()` method. **/
 	public function fetch() {
 		new Session({server: server}).fetch().next(session -> {
-			asserts.assert(session.handlers.exists(handler -> handler == "default"));
+			asserts.assert(session.handlers.exists(handler -> handler == Basic));
 			asserts.assert(session.user.name == Sys.getEnv("COUCHDB_USER"));
 		}).handle(asserts.handle);
 
