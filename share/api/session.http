@@ -16,4 +16,3 @@ Cookie: AuthSession={{cookie}}
 ### Deletes the session.
 DELETE {{server}}/_session
 Accept: application/json
-Cookie: AuthSession={{cookie}}
