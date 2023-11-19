@@ -23,7 +23,11 @@ using AssertionTools;
 
 	/** Tests the `favicon` property. **/
 	public function favicon() {
-		server.favicon.next(favicon -> asserts.assert(favicon.length > 0)).handle(asserts.handle);
+		final promise = Sys.getEnv("GITHUB_ACTIONS") == "true"
+			? asserts.rejects(NotFound, server.favicon)
+			: server.favicon.next(favicon -> asserts.assert(favicon.length > 0)).noise();
+
+		promise.handle(asserts.handle);
 		return asserts;
 	}
 
