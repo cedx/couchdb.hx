@@ -3,7 +3,7 @@
 
 An opinionated [Apache CouchDB](https://couchdb.apache.org) client for [Haxe](https://haxe.org).
 
-> **Not ready** for production!
+> **Work in progress**: not ready for production!
 
 ## Documentation
 - [User guide](https://cedx.github.io/couchdb.hx)
